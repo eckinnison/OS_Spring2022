@@ -24,6 +24,8 @@ syscall kgetc(void)
     // TODO: Check UART flags register, and
     //       once the receiver is not empty, get and return character c.
     //       If ASCII value 4 is seen, return special constant EOF instead.
+    if(*regptr == 4)
+        return EOF;
 
     return SYSERR;
 }
