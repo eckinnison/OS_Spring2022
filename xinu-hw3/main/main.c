@@ -1,4 +1,11 @@
 /**
+ * COSC 3250 - Project 3
+ * Explain briefly the functionality of the program.
+ * @author Emma Claire Kinnison David Santiago
+ * Instructor Dr. Brylow
+ * TA-BOT:MAILTO emma.kinnison@marquette.edu david.santiago@marquette.edu
+ */
+/**
  * @file     main.c
  */
 /* Embedded Xinu, Copyright (C) 2009, 2022.  All rights reserved. */
