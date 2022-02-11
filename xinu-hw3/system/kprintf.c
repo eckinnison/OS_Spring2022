@@ -64,7 +64,7 @@ syscall kputc(uchar c)
     //       Special handling -- if c is newline, transmit carriage return
     //       followed by newline.
 
-    regptr->dr = 'H';
+    regptr->dr = c;
 
     return SYSERR;
 }
