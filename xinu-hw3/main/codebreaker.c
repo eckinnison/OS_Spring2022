@@ -30,7 +30,7 @@ void decoder_ring_printer(int* data, int key, int index){
 				}
 				else if(c==10){	//if its an enter, reset everything, make c a non reachable number otherwise
 					c=100;
-					printf("\n");
+					kprintf("\n");
 
 				}
 				else{	//make the value 0 to 26
@@ -46,14 +46,14 @@ void decoder_ring_printer(int* data, int key, int index){
 
 				if((c!=100)){		//these are our enter and spaces
 					if(sum<0){	//add to 64
-						putchar(previous+64);
+						kputc(previous+64);
 					}
 					if(sum==0){		//make a space
-						printf(" ");
+						kprintf(" ");
 
 					}
 					else{		//make the correct uppercase value
-						putchar(sum+64);
+						kputc(sum+64);
 					}
 				}
 				else{
@@ -74,10 +74,10 @@ void decoder_ring_printer(int* data, int key, int index){
 					c=0;
 					previous=0;
 					sum=0;
-					printf("\n");
+					kprintf("\n");
 				}
 				else{
-					printf(" ");
+					kprintf(" ");
 				}
 			}
 		}
