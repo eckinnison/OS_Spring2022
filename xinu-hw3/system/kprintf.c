@@ -54,17 +54,23 @@ syscall kcheckc(void)
 {
     volatile struct pl011_uart_csreg *regptr;
     regptr = (struct pl011_uart_csreg *)0x3F201000;
+    while (true) {
+        for (int i = 0; i < UNGETMAX; i++) {
+            if (ungetArray[i] != NULL) {
+                if (!((regptr->fr) & (PL011_FR_RXFE))) {
+                    return 1;
+                }
+                else {
+                    return 0;
+                }
+            }
 
-   for(int i =0; i <UNGETMAX; i++){
-        if(ungetArray[i] != NULL){
-            return 1;
         }
-        
-    }
 
-    if((regptr->fr)&(PL011_FR_RXFE)){
-        return 0;
+      
     }
+   
+    
     // TODO: Check the unget buffer and the UART for characters.
 
     return 1;
