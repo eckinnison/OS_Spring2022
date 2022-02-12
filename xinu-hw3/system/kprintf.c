@@ -34,11 +34,15 @@ syscall kgetc(void)
     // TODO: First, check the unget buffer for a character.
     //       Otherwise, check UART flags register, and
     //       once the receiver is not empty, get character c.
-    while(i < UNGETMAX){
-        if (ungetArray[i]) {
-            i++;
+        if (ungetArray[1]) {
         }
+    
+    while (!((regptr->fr) & (PL011_FR_RXFE))) { // fr - flag register
     }
+
+    // also from pl011.h 
+    ungetArray[i] = c;  // dr - data register
+   
 
     return SYSERR; 
 }
