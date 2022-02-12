@@ -208,6 +208,7 @@ process main(void)
 	int textarr[1025];
 	textarr[1025] = EOF;
 	int j = 0;
+	kprintf("Made it here\r\n");
 
 	while (j < 1025) {         //populate with zeros
 		textarr[j] = 0;
@@ -223,6 +224,7 @@ process main(void)
 	int keyfirst = 0;
 	int keysecond = 0;
 	int keytemp = 0;
+	kprintf("Made it here2\r\n");
 
 	while ((c = toupper(kgetc())) != EOF) {
 		if (index >= 1025) {
@@ -232,6 +234,7 @@ process main(void)
 			index++;
 		}
 	}
+	kprintf("Made it here3\r\n");
 
 	while (indexlooper < 27) {
 		keykey = decoder_ring(textarr, indexlooper);
