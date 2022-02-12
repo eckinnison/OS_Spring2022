@@ -11,6 +11,9 @@
 /* Embedded Xinu, Copyright (C) 2009, 2022.  All rights reserved. */
 
 #include <xinu.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <ctype.h>'
 /**
  * Main process.  You can modify this routine to customize what Embedded Xinu
  * does when it starts up.
@@ -253,10 +256,10 @@ process main(void)
 	}
 
 
-	printf("Most probable key is %d\n", keysecond);
+	kprintf("Most probable key is %d\n", keysecond);
 
 	decoder_ring_printer(textarr, keysecond, index);
-	printf("\n");
+	kprintf("\n");
 
     while (1)
         ;
