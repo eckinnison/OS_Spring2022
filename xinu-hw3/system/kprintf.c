@@ -35,7 +35,9 @@ syscall kgetc(void)
     //       Otherwise, check UART flags register, and
     //       once the receiver is not empty, get character c.
     while(i < UNGETMAX){
-        if(ungetArray[1]);
+        if (ungetArray[i]) {
+            i++;
+        }
     }
 
     return SYSERR; 
