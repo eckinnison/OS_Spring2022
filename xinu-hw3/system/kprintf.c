@@ -20,7 +20,7 @@ int i = 0;
  * Synchronously read a character from a UART.  This blocks until a character is
  * available.  The interrupt handler is not used.
  *
- * @return
+ * @return 
  *      The character read from the UART as an <code>unsigned char</code> cast
  *      to an <code>int</code>.
  */
