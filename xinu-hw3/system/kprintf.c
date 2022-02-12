@@ -60,10 +60,10 @@ syscall kcheckc(void)
         for (int i = 0; i < UNGETMAX; i++) {
             if (ungetArray[i] != NULL) {
                 if (!((regptr->fr) & (PL011_FR_RXFE))) {
-                    return 1;
+                    return 0;
                 }
                 else {
-                    return 0;
+                    return 1;
                 }
             }
 
