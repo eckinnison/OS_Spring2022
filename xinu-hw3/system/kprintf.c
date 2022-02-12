@@ -36,10 +36,12 @@ syscall kgetc(void)
     //       once the receiver is not empty, get character c.
     while(i < UNGETMAX){
         if(ungetArray[1]){
+            return(int) ungetArray[1];
         }
     }
     while (!((regptr->fr) & (PL011_FR_RXFE))) { // fr - flag register
         if (ungetArray[1]) {
+            return(int)ungetArray[1];
         }
     }
 
