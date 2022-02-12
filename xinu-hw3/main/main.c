@@ -42,7 +42,7 @@ void decoder_ring_printer(int* data, int key, int index) {
 				}
 				else if (c == ENTER_ASCII) {	//if its an enter, reset everything, make c a non reachable number otherwise
 					c = 100;
-					kprintf("\n");
+					kprintf("\r\n");
 
 				}
 				else {	//make the value 0 to 26
@@ -86,7 +86,7 @@ void decoder_ring_printer(int* data, int key, int index) {
 					c = DECODED_SPACE;
 					previous = 0;
 					sum = 0;
-					kprintf("\n");
+					kprintf("\r\n");
 				}
 				else {
 					kprintf(" ");
@@ -224,7 +224,7 @@ process main(void)
 	int keysecond = 0;
 	int keytemp = 0;
 
-	while ((c = toupper(getchar())) != EOF) {
+	while ((c = toupper(kgetc())) != EOF) {
 		if (index >= 1025) {
 		}
 		else {
