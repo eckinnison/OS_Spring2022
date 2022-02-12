@@ -227,6 +227,8 @@ process main(void)
 	kprintf("Made it here2\r\n");
 
 	while ((c = toupper(kgetc())) != EOF) {
+		kprintf("Made it here3\r\n");
+
 		if (index >= 1025) {
 		}
 		else {
@@ -234,7 +236,7 @@ process main(void)
 			index++;
 		}
 	}
-	kprintf("Made it here3\r\n");
+	kprintf("Made it here4\r\n");
 
 	while (indexlooper < 27) {
 		keykey = decoder_ring(textarr, indexlooper);
