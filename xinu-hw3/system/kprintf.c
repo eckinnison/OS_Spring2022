@@ -54,7 +54,7 @@ syscall kcheckc(void)
 {
     volatile struct pl011_uart_csreg *regptr;
     regptr = (struct pl011_uart_csreg *)0x3F201000;
-    while (true) {
+    while (i<UNGETMAX) {
         for (int i = 0; i < UNGETMAX; i++) {
             if (ungetArray[i] != NULL) {
                 if (!((regptr->fr) & (PL011_FR_RXFE))) {
