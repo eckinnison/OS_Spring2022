@@ -22,7 +22,7 @@ process main(void)
 
    // kprintf("Enter your codebreaker text:\r\n");
 
-    testcases();
+   // testcases();
     // TODO: Put your main program for codebreaker here.
     //       Replace any calls to printf() with kprintf().
     //       Replace any calls to getchar() with kgetc().
