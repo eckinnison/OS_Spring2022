@@ -64,7 +64,18 @@ syscall kputc(uchar c)
     //       Special handling -- if c is newline, transmit carriage return
     //       followed by newline.
 
-    regptr->dr = c;
+    
+    if(regptr->dr & PL011_DR_BE) //I'm not sure which 
+    {
+        regptr->dr = c;
+    }
+    else
+    {
+        regptr->dr = c;
+    }
+
+    
+    
 
     return SYSERR;
 }
