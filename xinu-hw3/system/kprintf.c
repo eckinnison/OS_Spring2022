@@ -1,18 +1,28 @@
 /**
+ * COSC 3250 - Project 3
+ * Explain briefly the functionality of the program.
+ * @author Emma Claire Kinnison David Santiago
+ * Instructor Dr. Brylow
+ * TA-BOT:MAILTO emma.kinnison@marquette.edu david.santiago@marquette.edu
+ */
+/**
  * @file kprintf.c
  */
 
-/* Embedded Xinu, Copyright (C) 2009, 2022.  All rights reserved. */
+/* Embedded Xinu, Copyright (C) 2009, 2013.  All rights reserved. */
 
 #include <xinu.h>
 
+#define UNGETMAX 10             /* Can un-get at most 10 characters. */
+static unsigned char ungetArray[UNGETMAX];
+int i = 0;  
 /**
  * Synchronously read a character from a UART.  This blocks until a character is
  * available.  The interrupt handler is not used.
  *
  * @return
- *      The character read from the UART cast to an <code>int</code>.
- *      If ASCII value 4 is seen, return special constant EOF instead.
+ *      The character read from the UART as an <code>unsigned char</code> cast
+ *      to an <code>int</code>.
  */
 syscall kgetc(void)
 {
@@ -21,12 +31,14 @@ syscall kgetc(void)
     /* Pointer to the UART control and status registers.  */
     regptr = (struct pl011_uart_csreg *)0x3F201000;
 
-    // TODO: Check UART flags register, and
-    //       once the receiver is not empty, get and return character c.
-    //       If ASCII value 4 is seen, return special constant EOF instead.
-   
+    // TODO: First, check the unget buffer for a character.
+    //       Otherwise, check UART flags register, and
+    //       once the receiver is not empty, get character c.
+    while(i < UNGETMAX){
+        if(ungetArray[1]);
+    }
 
-    return SYSERR;
+    return SYSERR; 
 }
 
 /**
@@ -38,9 +50,38 @@ syscall kcheckc(void)
     volatile struct pl011_uart_csreg *regptr;
     regptr = (struct pl011_uart_csreg *)0x3F201000;
 
-    // TODO: Check the UART for characters, and return true or false.
+   for(int i =0; i <UNGETMAX; i++){
+        if(ungetArray[i] != NULL){
+            return 1;
+        }
+        
+    }
+
+    if((regptr->fr)&(PL011_FR_RXFE)){
+        return 0;
+    }
+    // TODO: Check the unget buffer and the UART for characters.
+
+    return 1;
+}
+
+/**
+ * kungetc - put a serial character "back" into a local buffer.
+ * @param c character to unget.
+ * @return c on success, SYSERR on failure.
+ */
+syscall kungetc(unsigned char c)
+{
+    // TODO: Check for room in unget buffer, put the character in or discard.
+    for(int i=0; i < UNGETMAX; i++){
+        if(ungetArray[i] != NULL){
+            ungetArray[i] = c;
+            return c;
+        }
+    }
     return SYSERR;
 }
+
 
 /**
  * Synchronously write a character to a UART.  This blocks until the character
@@ -50,7 +91,8 @@ syscall kcheckc(void)
  *      The character to write.
  *
  * @return
- *      The character written to the UART.
+ *      The character written to the UART as an <code>unsigned char</code> cast
+ *      to an <code>int</code>.
  */
 syscall kputc(uchar c)
 {
@@ -61,23 +103,15 @@ syscall kputc(uchar c)
 
     // TODO: Check UART flags register.
     //       Once the Transmitter FIFO is not full, send character c.
-    //       Special handling -- if c is newline, transmit carriage return
-    //       followed by newline.
 
-    
-    if(regptr->dr & PL011_DR_BE) //I'm not sure which 
-    {
-        regptr->dr = c;
-    }
-    else
-    {
-        regptr->dr = c;
+    // from pl011.h file 
+    while((regptr->fr)&(PL011_FR_TXFF)){ // fr - flag register
     }
 
-    
-    
-
-    return SYSERR;
+    // also from pl011.h 
+    regptr->dr = c;  // dr - data register
+    return(int) c;
+    // return SYSERR;
 }
 
 /**
