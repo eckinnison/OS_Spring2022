@@ -11,7 +11,7 @@
 /* Embedded Xinu, Copyright (C) 2009, 2022.  All rights reserved. */
 
 #include <xinu.h>
-
+#include "codebreaker.c"
 /**
  * Main process.  You can modify this routine to customize what Embedded Xinu
  * does when it starts up.
@@ -26,7 +26,7 @@ process main(void)
     // TODO: Put your main program for codebreaker here.
     //       Replace any calls to printf() with kprintf().
     //       Replace any calls to getchar() with kgetc().
-
+    codebreaker();
     while (1)
         ;
 

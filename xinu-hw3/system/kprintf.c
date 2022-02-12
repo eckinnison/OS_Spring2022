@@ -65,14 +65,9 @@ syscall kcheckc(void)
                 }
             }
 
-        }
-
-      
-    }
-   
-    
+        }      
+    }    
     // TODO: Check the unget buffer and the UART for characters.
-
     return 1;
 }
 
