@@ -224,7 +224,7 @@ process main(void)
 	int keysecond = 0;
 	int keytemp = 0;
 
-	while ((c = toupper(kgetc())) != EOF) {
+	while ((c = toupper(kgetc())) != EOT) {
 
 		if (index >= 128) {
 		}

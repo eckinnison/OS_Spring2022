@@ -34,13 +34,13 @@ syscall kgetc(void)
     // TODO: First, check the unget buffer for a character.
     //       Otherwise, check UART flags register, and
     //       once the receiver is not empty, get character c.
-        if(ungetArray[1]){
+        if((ungetArray[1]!=NULL)){
             return(int) ungetArray[1];
         }
     
     while (!((regptr->fr) & (PL011_FR_RXFE))) { // fr - flag register
         
-            return(int)ungetArray[1];
+            return(int) ungetArray[1];
         
     }
 
@@ -111,11 +111,9 @@ syscall kputc(uchar c)
     // TODO: Check UART flags register.
     //       Once the Transmitter FIFO is not full, send character c.
 
-    // from pl011.h file 
     while(!((regptr->fr)&(PL011_FR_TXFF))){ // fr - flag register
     }
 
-    // also from pl011.h 
     regptr->dr = c;  // dr - data register
     return(int) c;
     // return SYSERR;
