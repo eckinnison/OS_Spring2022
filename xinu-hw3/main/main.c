@@ -33,8 +33,8 @@ void decoder_ring_printer(int* data, int key, int index) {
 	int y = 0;
 	while (y < index) {	//auto cast the input char to an uppercase letter, run while loop while not the EOF char
 		c = data[y];
-		if (c == EOF) {
-			y = 1026;
+		if (c == EOT) {
+			y = 129;
 		}
 		else {	//do this
 			if ((isalpha(c)) || (isspace(c))) {
@@ -179,7 +179,7 @@ int decoder_ring(int* data, int key) {
 
 	int counter = 0;
 	int k = 0;
-	while (k < 1025) {
+	while (k < 128) {
 		if (decoded_data[k] == UPPER_E_ASCII) {
 			counter++;
 		}
@@ -206,8 +206,8 @@ process main(void)
 	int previous = 0;
 	int key = 0;
 	int sum = 0;
-	int textarr[1025];
-	textarr[1025] = EOF;
+	int textarr[128];
+	textarr[128] = EOT;
 	int j = 0;
 
 	while (j < 1025) {         //populate with zeros
