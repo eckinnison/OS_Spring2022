@@ -23,6 +23,7 @@ int ENTER_ASCII = 10;
 int NUM_ALPHA_PLUS_ONE = 27;
 int DECODED_SPACE = 0;
 int UPPER_E_ASCII = 69;
+int EOT = 4;
 
 void decoder_ring_printer(int* data, int key, int index) {
 	int c = 0;			//initilization
