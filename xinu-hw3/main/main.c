@@ -188,7 +188,7 @@ int decoder_ring(int* data, int key) {
 	}
 	return counter;
 }
-process main(int argc, char** argv)
+process main(void)
 {
     kprintf("Hello Xinu World!\r\n");
 
@@ -226,7 +226,7 @@ process main(int argc, char** argv)
 
 	while ((c = toupper(kgetc())) != EOF) {
 
-		if (index >= 1025) {
+		if (index >= 128) {
 		}
 		else {
 			//kprintf("%d\r\n", index);//%d prints numbers
