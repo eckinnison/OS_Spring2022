@@ -24,7 +24,7 @@ int i = 0;
  *      The character read from the UART as an <code>unsigned char</code> cast
  *      to an <code>int</code>.
  */
-syscall kgetc(int argc, char** argv)
+syscall kgetc(void)
 {
     volatile struct pl011_uart_csreg *regptr;
 
