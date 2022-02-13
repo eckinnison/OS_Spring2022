@@ -229,7 +229,7 @@ process main(void)
 		if (index >= 1025) {
 		}
 		else {
-			kprintf("%i\r\n", index);
+			kprintf(index"\r\n");
 			textarr[index] = c;
 			index++;
 		}
