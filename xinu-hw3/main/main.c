@@ -227,11 +227,11 @@ process main(void)
 	kprintf("Made it here2\r\n");
 
 	while ((c = toupper(kgetc())) != EOF) {
-		kprintf("Made it here3\r\n");
 
 		if (index >= 1025) {
 		}
 		else {
+			kprintf("Made it here3\r\n");
 			textarr[index] = c;
 			index++;
 		}
