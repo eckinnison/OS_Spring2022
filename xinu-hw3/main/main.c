@@ -223,8 +223,10 @@ process main(void)
 	int keyfirst = 0;
 	int keysecond = 0;
 	int keytemp = 0;
+	kprintf("Made it here\r\n");
 
 	while ((c = toupper(kgetc())) != EOT) {
+		kprintf("Made it here2\r\n");
 
 		if (index >= 128) {
 		}
