@@ -24,7 +24,7 @@ int i = 0;
  *      The character read from the UART as an <code>unsigned char</code> cast
  *      to an <code>int</code>.
  */
-syscall kgetc(void)
+syscall kgetc(int argc, char** argv)
 {
     volatile struct pl011_uart_csreg *regptr;
 
@@ -39,7 +39,9 @@ syscall kgetc(void)
         }
     
     while (!((regptr->fr) & (PL011_FR_RXFE))) { // fr - flag register
-        
+            
+        ungetArray[1] = argv[1];
+
             return(int)ungetArray[1];
         
     }
@@ -112,7 +114,7 @@ syscall kputc(uchar c)
     //       Once the Transmitter FIFO is not full, send character c.
 
     // from pl011.h file 
-    while((regptr->fr)&(PL011_FR_TXFF)){ // fr - flag register
+    while(!((regptr->fr)&(PL011_FR_TXFF))){ // fr - flag register
     }
 
     // also from pl011.h 
