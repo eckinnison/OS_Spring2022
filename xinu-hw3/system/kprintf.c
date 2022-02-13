@@ -39,9 +39,7 @@ syscall kgetc(void)
         }
     
     while (!((regptr->fr) & (PL011_FR_RXFE))) { // fr - flag register
-            
-        ungetArray[1] = argv[1];
-
+        
             return(int)ungetArray[1];
         
     }
