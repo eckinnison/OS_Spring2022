@@ -36,14 +36,12 @@ syscall kgetc(void)
     //       Otherwise, check UART flags register, and
     //       once the receiver is not empty, get character c.
     if ((kcheckc())==TRUE) {
-        int i = 0;
-        while (i <= UNGETMAX) { 
-            if (ungetArray[i] != NULL) { 
+        for (int i = 0; i <= UNGETMAX; i++) { // create an int i and loop through all of ungetArray
+            if (ungetArray[i] != NULL) { //check if the ungetArray has a value that
                 c = ungetArray[i];
                 ungetArray[i] = NULL;
                 return (int)c;
             }
-            i++;
         }
     }
     
