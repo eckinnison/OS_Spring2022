@@ -16,7 +16,7 @@
 #define UNGETMAX 10             /* Can un-get at most 10 characters. */
 
 static unsigned char ungetArray[UNGETMAX];
-int i = 0; //used for loops 
+int i = 0; //used for indexing 
 /**
  * Synchronously read a character from a UART.  This blocks until a character is
  * available.  The interrupt handler is not used.
@@ -37,22 +37,18 @@ syscall kgetc(void)
     //       once the receiver is not empty, get character c.
     unsigned char c = 0;
 
-    if ((kcheckc())==TRUE) {
-        int i = 0;
-        while (i <= UNGETMAX) { 
-            if (ungetArray[i] != NULL) { 
-                c = ungetArray[i];
-                ungetArray[i] = NULL;
-                return (int)c;
-            }
-            i++;
+    if (kcheckc()){
+    }
+    if (i > 0) {
+        i--;
+        return (int)ungetArray[i];
+    }
+    else {
+        while ((regptr->fr) & (PL011_FR_RXFE)) {
         }
+        c = regptr->dr;
+        return (int)c;
     }
-    
-    while ((regptr->fr) & (PL011_FR_RXFE)) {
-    }
-    c = regptr->dr; 
-    return (int)c; 
 }
 
 /**
@@ -61,14 +57,14 @@ syscall kgetc(void)
  */
 syscall kcheckc(void)
 {
+    int j = 0;
     volatile struct pl011_uart_csreg* regptr;
     regptr = (struct pl011_uart_csreg*)0x3F201000;
-    int i = 0;
-    while(i < UNGETMAX) {
-        if (ungetArray[i] != NULL) {
+    while(j < UNGETMAX) {
+        if (ungetArray[j] != NULL) {
             return 1;
         }
-        i++;
+        j++;
     }
 
     if ((regptr->fr) & (PL011_FR_RXFE)) {
@@ -87,13 +83,10 @@ syscall kcheckc(void)
 syscall kungetc(unsigned char c)
 {
     // TODO: Check for room in unget buffer, put the character in or discard.
-    int i = 0;
-    while(i < UNGETMAX) {
-        if (ungetArray[i] != NULL) {
-            ungetArray[i] = c;
-            return c;
-        }
-    }
+    if (i < UNGETMAX) {
+        ungetArray[i + 1] = c;
+        return c;
+   }
     return SYSERR;
 }
 
