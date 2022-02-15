@@ -226,8 +226,9 @@ process main(void)
 	kprintf("Enter your codebreaker text:\r\n");
 
 	while ((c = toupper(kgetc())) != EOF && c!=4) {
-		kprintf("%c",c);
+		kputc(c);
 		if (index >= 128) {
+			c = 4;
 		}
 		else {
 			//kprintf("%d\r\n", index);//%d prints numbers
