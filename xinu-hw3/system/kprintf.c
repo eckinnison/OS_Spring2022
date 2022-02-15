@@ -16,7 +16,6 @@
 #define UNGETMAX 10             /* Can un-get at most 10 characters. */
 
 static unsigned char ungetArray[UNGETMAX];
-int i = 0; //used for indexing 
 /**
  * Synchronously read a character from a UART.  This blocks until a character is
  * available.  The interrupt handler is not used.
@@ -39,7 +38,7 @@ syscall kgetc(void) //*****************HELP*************
 
     //if (kcheckc()) { //check to make sure there is something in the register
     //}
-    if (kcheckc) {
+    if (kcheckc()) {
         for (int k = 0; k < UNGETMAX; k++) {
             if (ungetArray[k] != NULL) {
                 c=ungetArray[k];
@@ -92,9 +91,12 @@ syscall kcheckc(void)
 syscall kungetc(unsigned char c)//*****************HELP*************
 {
     // TODO: Check for room in unget buffer, put the character in or discard.
+    int i = 0; //used for indexing 
+
     if (i < UNGETMAX) {
-        i++;
+        
         ungetArray[i] = c;
+        i++;
         return c;
    }
     return SYSERR;
