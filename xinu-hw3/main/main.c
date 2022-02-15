@@ -225,7 +225,8 @@ process main(void)
 	int keytemp = 0;
 	kprintf("Enter your codebreaker text:\r\n");
 
-	while ((c = toupper(kgetc())) != EOF && c!=4) {
+	while ((c = kgetc()) != EOF && c!=4) {
+		c = toupper(c);
 			kputc(c);
 		
 			//kprintf("%d\r\n", index);//%d prints numbers
