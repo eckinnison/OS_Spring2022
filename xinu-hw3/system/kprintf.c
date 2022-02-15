@@ -40,8 +40,8 @@ syscall kgetc(void)
     if (kcheckc()){ //check to make sure there is something in the register
     }
     if (i > 0) {    //if there is something in the array
-        i--;
         return (int)ungetArray[i];
+        i--;
     }
     else {
         while ((regptr->fr) & (PL011_FR_RXFE)) {
@@ -60,11 +60,11 @@ syscall kcheckc(void)
     int j = 0;
     volatile struct pl011_uart_csreg* regptr;
     regptr = (struct pl011_uart_csreg*)0x3F201000;
-    while(i < UNGETMAX) {
-        if (ungetArray[i] != NULL) {
+    while(j < UNGETMAX) {
+        if (ungetArray[j] != NULL) {
             return 1;
         }
-        i++;
+        j++;
     }
 
     if ((regptr->fr) & (PL011_FR_RXFE)) {
