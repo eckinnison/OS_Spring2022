@@ -39,16 +39,18 @@ syscall kgetc(void)
 
     //if (kcheckc()){ //check to make sure there is something in the register
     //}
-    if (i >= 0) {    //if there is something in the array
-        i--;
-        return (int)ungetArray[i];
-    }
-    else {
+    //if (i >= 0) {    //if there is something in the array
+    //    i--;
+    //    return (int)ungetArray[i];
+    //}
+    //else {
         while ((regptr->fr) & (PL011_FR_RXFE)) {
         }
+        ungetArray[i]=c;
+        i++;
         c = regptr->dr;
         return (int)c;
-    }
+  //  }
 }
 
 /**
