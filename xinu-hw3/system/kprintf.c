@@ -37,9 +37,9 @@ syscall kgetc(void)
     //       once the receiver is not empty, get character c.
     unsigned char c = 0;
 
-    if (kcheckc()){
+    if (kcheckc()){ //check to make sure there is something in the register
     }
-    if (i > 0) {
+    if (i > 0) {    //if there is something in the array
         i--;
         return (int)ungetArray[i];
     }
@@ -84,7 +84,8 @@ syscall kungetc(unsigned char c)
 {
     // TODO: Check for room in unget buffer, put the character in or discard.
     if (i < UNGETMAX) {
-        ungetArray[i + 1] = c;
+        i++;
+        ungetArray[i] = c;
         return c;
    }
     return SYSERR;

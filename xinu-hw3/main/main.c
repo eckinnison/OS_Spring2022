@@ -226,7 +226,7 @@ process main(void)
 	int keytemp = 0;
 	kprintf("Made it here\r\n");
 
-	while ((c = toupper(kgetc())) != EOT) {
+	while ((c = toupper(kgetc())) != EOF) {
 		kprintf("Made it here2\r\n");
 
 		if (index >= 128) {
