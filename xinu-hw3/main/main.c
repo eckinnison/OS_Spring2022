@@ -18,12 +18,12 @@
  * Main process.  You can modify this routine to customize what Embedded Xinu
  * does when it starts up.
  */
-int SPACE_ASCII = 32;
-int ENTER_ASCII = 10;
-int NUM_ALPHA_PLUS_ONE = 27;
-int DECODED_SPACE = 0;
-int UPPER_E_ASCII = 69;
-int EOT = 4;
+#define <int> SPACE_ASCII = 32;
+#define <int> ENTER_ASCII = 10;
+#define <int> NUM_ALPHA_PLUS_ONE = 27;
+#define <int> DECODED_SPACE = 0;
+#define <int> UPPER_E_ASCII = 69;
+#define <int> EOT = 4;
 
 void decoder_ring_printer(int* data, int key, int index) {
 	int c = 0;			//initilization
