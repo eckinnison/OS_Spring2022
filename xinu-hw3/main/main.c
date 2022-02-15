@@ -193,7 +193,6 @@ process main(void)
 {
     kprintf("Hello Xinu World!\r\n");
 
-   // kprintf("Enter your codebreaker text:\r\n");
 
    // testcases();
     // TODO: Put your main program for codebreaker here.
@@ -224,6 +223,7 @@ process main(void)
 	int keyfirst = 0;
 	int keysecond = 0;
 	int keytemp = 0;
+	kprintf("Enter your codebreaker text:\r\n");
 
 	while ((c = toupper(kgetc())) != EOF && c!=4) {
 
