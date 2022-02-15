@@ -16,7 +16,7 @@
 #define UNGETMAX 10             /* Can un-get at most 10 characters. */
 
 static unsigned char ungetArray[UNGETMAX];
-int i = 0; //used for indexing 
+int i = 1; //used for indexing 
 /**
  * Synchronously read a character from a UART.  This blocks until a character is
  * available.  The interrupt handler is not used.
