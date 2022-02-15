@@ -40,8 +40,8 @@ syscall kgetc(void)
     if (kcheckc()){ //check to make sure there is something in the register
     }
     if (i > 0) {    //if there is something in the array
-        return (int)ungetArray[i];
         i--;
+        return (int)ungetArray[i];
     }
     else {
         while ((regptr->fr) & (PL011_FR_RXFE)) {
