@@ -225,16 +225,13 @@ process main(void)
 	int keytemp = 0;
 	kprintf("Enter your codebreaker text:\r\n");
 
-	while ((c = toupper(kgetc()) != EOF) && (c!=4)) {
-		kputc(c);
-		if (index >= 128) {
-			c = 4;
-		}
-		else {
+	while ((c = toupper(kgetc())) != EOF && c!=4) {
+			kputc(c);
+		
 			//kprintf("%d\r\n", index);//%d prints numbers
 			textarr[index] = c;
 			index++;
-		}
+		
 	}
 
 	while (indexlooper < 27) {
