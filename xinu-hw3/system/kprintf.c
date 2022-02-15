@@ -39,7 +39,7 @@ syscall kgetc(void)
 
     //if (kcheckc()){ //check to make sure there is something in the register
     //}
-    if (i > 0) {    //if there is something in the array
+    if (i >= 0) {    //if there is something in the array
         i--;
         return (int)ungetArray[i];
     }
