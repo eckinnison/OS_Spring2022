@@ -18,7 +18,7 @@
  * Main process.  You can modify this routine to customize what Embedded Xinu
  * does when it starts up.
  */
-int SPACE_ASCII = 32;
+#define SPACE_ASCII 32
 int ENTER_ASCII = 10;
 int NUM_ALPHA_PLUS_ONE = 27;
 int DECODED_SPACE = 0;
