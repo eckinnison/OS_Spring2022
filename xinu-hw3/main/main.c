@@ -33,7 +33,7 @@ void decoder_ring_printer(int* data, int key, int index) {
 	int y = 0;
 	while (y < index) {	//auto cast the input char to an uppercase letter, run while loop while not the EOF char
 		c = data[y];
-		if (c == EOF) {
+		if ((c == EOT)||(c==EOF)) {
 			y = 129;
 		}
 		else {	//do this
@@ -106,12 +106,12 @@ int decoder_ring(int* data, int key) {
 	int sum = 0;
 	int previous = 0;
 	int j = 0;
-	int decoded_data[1025];
-	while (y < 1025) {	//auto cast the input char to an uppercase letter, run while loop while not the EOF char
+	int decoded_data[128];
+	while (y < 128) {	//auto cast the input char to an uppercase letter, run while loop while not the EOF char
 		c = data[y];
 
-		if (c == EOF) {
-			y = 1026;
+		if ((c == EOF)||(c== EOT)) {
+			y = 129;
 		}
 		else {	//do this
 			if ((isalpha(c)) || (isspace(c))) {
@@ -210,7 +210,7 @@ process main(void)
 	textarr[128] = EOT;
 	int j = 0;
 
-	while (j < 1025) {         //populate with zeros
+	while (j < 128) {         //populate with zeros
 		textarr[j] = 0;
 		j++;
 	}
@@ -224,10 +224,8 @@ process main(void)
 	int keyfirst = 0;
 	int keysecond = 0;
 	int keytemp = 0;
-	kprintf("Made it here\r\n");
 
 	while ((c = toupper(kgetc())) != EOF && c!=4) {
-		kprintf("Made it here2\r\n");
 
 		if (index >= 128) {
 		}
@@ -237,7 +235,6 @@ process main(void)
 			index++;
 		}
 	}
-	kprintf("Made it here4\r\n");
 
 	while (indexlooper < 27) {
 		keykey = decoder_ring(textarr, indexlooper);
@@ -262,10 +259,10 @@ process main(void)
 	}
 
 
-	kprintf("Most probable key is %d\n", keysecond);
+	kprintf("Most probable key is %d\r\n", keysecond);
 
 	decoder_ring_printer(textarr, keysecond, index);
-	kprintf("\n");
+	kprintf("\r\n");
 
     while (1)
         ;
