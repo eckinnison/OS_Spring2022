@@ -39,7 +39,7 @@ syscall kgetc(void)
 
     //if (kcheckc()) { //check to make sure there is something in the register
     //}
-    for int k = 0; k < UNGETMAX; k++{
+    for (int k = 0; k < UNGETMAX; k++){
         if (ungetArray[k] != NULL) {
             return (int)ungetArray[k];
         }
