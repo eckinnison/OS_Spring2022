@@ -33,7 +33,7 @@ void decoder_ring_printer(int* data, int key, int index) {
 	int y = 0;
 	while (y < index) {	//auto cast the input char to an uppercase letter, run while loop while not the EOF char
 		c = data[y];
-		if (c == EOT) {
+		if (c == EOF) {
 			y = 129;
 		}
 		else {	//do this
@@ -226,7 +226,7 @@ process main(void)
 	int keytemp = 0;
 	kprintf("Made it here\r\n");
 
-	while ((c = toupper(kgetc())) != EOT) {
+	while ((c = toupper(kgetc())) != EOF && c!=4) {
 		kprintf("Made it here2\r\n");
 
 		if (index >= 128) {
