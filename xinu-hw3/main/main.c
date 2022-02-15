@@ -19,11 +19,11 @@
  * does when it starts up.
  */
 #define SPACE_ASCII 32
-int ENTER_ASCII = 10;
-int NUM_ALPHA_PLUS_ONE = 27;
-int DECODED_SPACE = 0;
-int UPPER_E_ASCII = 69;
-int EOT = 4;
+#define ENTER_ASCII 10
+#define NUM_ALPHA_PLUS_ONE 27
+#define DECODED_SPACE 0
+#define UPPER_E_ASCII 69
+#define EOT 4
 
 void decoder_ring_printer(int* data, int key, int index) {
 	int c = 0;			//initilization
