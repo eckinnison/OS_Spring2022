@@ -25,7 +25,7 @@ int i = 0; //used for indexing
  *      The character read from the UART as an <code>unsigned char</code> cast
  *      to an <code>int</code>.
  */
-syscall kgetc(void)
+syscall kgetc(void) //*****************HELP*************
 {
     volatile struct pl011_uart_csreg* regptr;
 
@@ -85,7 +85,7 @@ syscall kcheckc(void)
  * @param c character to unget.
  * @return c on success, SYSERR on failure.
  */
-syscall kungetc(unsigned char c)
+syscall kungetc(unsigned char c)//*****************HELP*************
 {
     // TODO: Check for room in unget buffer, put the character in or discard.
     if (i < UNGETMAX) {
