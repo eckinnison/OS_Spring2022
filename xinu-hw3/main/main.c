@@ -258,7 +258,7 @@ process main(void)
 	}
 
 
-	kprintf("Most probable key is %d\r\n", keysecond);
+	kprintf("\r\nMost probable key is %d\r\n", keysecond);
 
 	decoder_ring_printer(textarr, keysecond, index);
 	kprintf("\r\n");
