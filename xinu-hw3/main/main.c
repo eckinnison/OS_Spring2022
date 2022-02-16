@@ -273,6 +273,7 @@ process main(void)
 
 	decoder_ring_printer(textarr, keysecond, index);
 	kprintf("\r\n");
+	kprintf("===TEST END===");
 
     while (1)
         ;
