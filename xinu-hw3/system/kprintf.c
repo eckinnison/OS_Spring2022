@@ -41,6 +41,9 @@ syscall kgetc(void) //*****************HELP*************
             if (ungetArray[k] != NULL) {
                 c=ungetArray[k];
                 ungetArray[k] = NULL;
+                if (c == '\r') {
+                    c = NULL;
+                }
                 return(int) c;
             }
         }
@@ -122,9 +125,7 @@ syscall kputc(uchar c)
 
     while ((regptr->fr) & (PL011_FR_TXFF)) {
     }
-    if (c == '\r\n') {
-        c = '\n';
-    }
+   
     regptr->dr = c;
     
     return(int)c;
