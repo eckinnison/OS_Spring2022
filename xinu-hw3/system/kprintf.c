@@ -14,7 +14,7 @@
 #include <xinu.h>
 
 #define UNGETMAX 10             /* Can un-get at most 10 characters. */
-#define ENTER_ASCII 10
+#define ENTER_ASCII 10          //no magic numbers
 #define RETURN_ASCII 13
 
 static unsigned char ungetArray[UNGETMAX];
@@ -38,9 +38,9 @@ syscall kgetc(void) //*****************HELP*************
     //       once the receiver is not empty, get character c.
     unsigned char c = 0;
 
-    if (kcheckc()) {
-        for (int k = 0; k < UNGETMAX; k++) {
-            if (ungetArray[k] != NULL) {
+    if (kcheckc()) {                    //check to see if the vals are there
+        for (int k = 0; k < UNGETMAX; k++) {        //loop through the array
+            if (ungetArray[k] != NULL) {        //if its null put the char in the array
                 c=ungetArray[k];
                 ungetArray[k] = NULL;
                 return(int) c;
@@ -48,10 +48,10 @@ syscall kgetc(void) //*****************HELP*************
         }
     }
     
-    while ((regptr->fr) & (PL011_FR_RXFE)) {
+    while ((regptr->fr) & (PL011_FR_RXFE)) {    //otherwise wait until its not empty 
     }
     
-    c = regptr->dr;
+    c = regptr->dr;     //and put the char into the reciever
     return (int)c;
     
 }
@@ -65,14 +65,14 @@ syscall kcheckc(void)
     int j = 0;
     volatile struct pl011_uart_csreg* regptr;
     regptr = (struct pl011_uart_csreg*)0x3F201000;
-    while (j < UNGETMAX) {
+    while (j < UNGETMAX) {          //loop though the array and if its NULL return a 1
         if (ungetArray[j] != NULL) {
             return 1;
         }
         j++;
     }
 
-    if ((regptr->fr) & (PL011_FR_RXFE)) {
+    if ((regptr->fr) & (PL011_FR_RXFE)) {       //otherwise if theres a char availble return a o
         return 0;
     }
     // TODO: Check the unget buffer and the UART for characters.
@@ -80,25 +80,7 @@ syscall kcheckc(void)
     return 1;
 }
 
-/**
- * kungetc - put a serial character "back" into a local buffer.
- * @param c character to unget.
- * @return c on success, SYSERR on failure.
- */
-//syscall kungetc(unsigned char c)//*****************HELP*************
-//{
-//    // TODO: Check for room in unget buffer, put the character in or discard.
-//    int i = 0; //used for indexing 
-//
-//    while (i < UNGETMAX) {
-//        if (ungetArray[i] == NULL) {
-//            ungetArray[i] = c;
-//            return c;
-//        }
-//        i++;
-//   }
-//    return SYSERR;
-//}
+//kungetc was not needed and was deleted
 
 
 /**
@@ -122,17 +104,17 @@ syscall kputc(uchar c)
     // TODO: Check UART flags register.
     //       Once the Transmitter FIFO is not full, send character c.
 
-    while ((regptr->fr) & (PL011_FR_TXFF)) {
+    while ((regptr->fr) & (PL011_FR_TXFF)) {    //wait until the register is not full
     }
    
    // regptr->dr = c;
 
-    if (c == ENTER_ASCII) {
-        regptr->dr = RETURN_ASCII;
-        while (((regptr->fr) & (PL011_FR_TXFF))) {
+    if (c == ENTER_ASCII) {         //if its an enter
+        regptr->dr = RETURN_ASCII;  //send the /r
+        while (((regptr->fr) & (PL011_FR_TXFF))) {  //wait for the register to be full
         }
     }
-    regptr->dr = c;
+    regptr->dr = c; //send the char
 
     return(int)c;
 }
@@ -150,7 +132,7 @@ syscall kputc(uchar c)
  * @return
  *      The number of characters written.
  */
-syscall kprintf(const char* format, ...)
+syscall kprintf(const char* format, ...)    //didnt touch this
 {
     int retval;
     va_list ap;

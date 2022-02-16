@@ -18,6 +18,8 @@
  * Main process.  You can modify this routine to customize what Embedded Xinu
  * does when it starts up.
  */
+
+//this gets rid of my magic numbers
 #define SPACE_ASCII 32
 #define BACKSLASH_R_ASCII 13
 #define ENTER_ASCII 10
@@ -25,7 +27,9 @@
 #define DECODED_SPACE 0
 #define UPPER_E_ASCII 69
 #define EOT 4
+#define ADJUSTER 64
 
+//this prints out the result of the decoder once it has figured out what the correct result is
 void decoder_ring_printer(int* data, int key, int index) {
 	int c = 0;			//initilization
 	int previousc = 0;
@@ -48,7 +52,7 @@ void decoder_ring_printer(int* data, int key, int index) {
 
 				}
 				else {	//make the value 0 to 26
-					c = c - 64;
+					c = c - ADJUSTER;
 				}
 				sum = c - ((previous + key) % NUM_ALPHA_PLUS_ONE);	//decode
 				if (sum < 0) {
@@ -60,14 +64,14 @@ void decoder_ring_printer(int* data, int key, int index) {
 
 				if ((c != 100)) {		//these are our enter and spaces
 					if (sum < 0) {	//add to 64
-						kputc(previous + 64);
+						kputc(previous + ADJUSTER);
 					}
 					if (sum == DECODED_SPACE) {		//make a space
 						kprintf(" ");
 
 					}
 					else {		//make the correct uppercase value
-						kputc(sum + 64);
+						kputc(sum + ADJUSTER);
 					}
 				}
 				else {
@@ -126,7 +130,7 @@ int decoder_ring(int* data, int key) {
 					c = 100;
 				}
 				else {	//make the value 0 to 26
-					c = c - 64;
+					c = c - ADJUSTER;
 				}
 				//sum=c-previous-key;	//decode
 				sum = c - ((previous + key) % NUM_ALPHA_PLUS_ONE);	//decode
@@ -138,7 +142,7 @@ int decoder_ring(int* data, int key) {
 				if ((c != 100)) {		//these are our enter and spaces
 					if (sum < 0) {	//add to 64
 						//putchar(previous+64);
-						decoded_data[j] = previous + 64;
+						decoded_data[j] = previous + ADJUSTER;
 						j++;
 					}
 					if (sum == DECODED_SPACE) {		//make a space
@@ -148,7 +152,7 @@ int decoder_ring(int* data, int key) {
 					}
 					else {		//make the correct uppercase value
 					//	putchar(sum+64);
-						decoded_data[j] = sum + 64;
+						decoded_data[j] = sum + ADJUSTER;
 						j++;
 					}
 				}
@@ -237,11 +241,11 @@ void codebreaker(){
 
 	}
 
-	while (indexlooper < 27) {
+	while (indexlooper < 27) {						//make sure all the different indexes work
 		keykey = decoder_ring(textarr, indexlooper);
 		if (second == keykey) {
 		}
-		else if (second < keykey) {
+		else if (second < keykey) {	//do all the switches so that the second most is identified
 			if (keykey > first) {
 				temp = first;
 				first = keykey;
@@ -260,11 +264,16 @@ void codebreaker(){
 	}
 
 
-	kprintf("Most probable key is %d\n", keysecond);
+	kprintf("Most probable key is %d\n", keysecond);	//print it
 
 	decoder_ring_printer(textarr, keysecond, index);
 	kprintf("\n");
 }
+
+
+
+
+
 process main(void)
 {
     kprintf("Hello Xinu World!\n");
@@ -275,8 +284,6 @@ process main(void)
     //       Replace any calls to printf() with kprintf().
     //       Replace any calls to getchar() with kgetc().
     codebreaker();
-
-	
 	kprintf("===TEST END===");
 
     while (1)
