@@ -124,8 +124,8 @@ syscall kputc(uchar c)
     }
 
     regptr->dr = c;
-    if (c == '\n') {
-        c = '\n', '\r';
+    if (c == '\r') {
+        c = '\r', '\n';
     }
     return(int)c;
 }
