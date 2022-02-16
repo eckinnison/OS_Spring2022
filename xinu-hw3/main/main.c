@@ -196,24 +196,15 @@ int decoder_ring(int* data, int key) {
 	}
 	return counter;
 }
-process main(void)
-{
-    kprintf("Hello Xinu World!\n");
 
-
-   // testcases();
-    // TODO: Put your main program for codebreaker here.
-    //       Replace any calls to printf() with kprintf().
-    //       Replace any calls to getchar() with kgetc().
-    //codebreaker();
-
+void codebreaker(){
 	int c = 0;			//initilization
 	int previousc = 0;
 	int previous = 0;
 	int key = 0;
 	int sum = 0;
 	int textarr[128];
-	textarr[128] = EOT;
+	textarr[127] = EOF;
 	int j = 0;
 
 	while (j < 128) {         //populate with zeros
@@ -232,7 +223,7 @@ process main(void)
 	int keytemp = 0;
 	kprintf("Enter your codebreaker text:\n");
 
-	while ((c = kgetc()) != EOF && c!=4) {
+	while ((c = kgetc()) != EOF && c != 4) {
 		if (c == BACKSLASH_R_ASCII) {
 
 		}
@@ -242,8 +233,8 @@ process main(void)
 			textarr[index] = c;
 			index++;
 		}
-		
-		
+
+
 	}
 
 	while (indexlooper < 27) {
@@ -273,6 +264,19 @@ process main(void)
 
 	decoder_ring_printer(textarr, keysecond, index);
 	kprintf("\n");
+}
+process main(void)
+{
+    kprintf("Hello Xinu World!\n");
+
+
+   // testcases();
+    // TODO: Put your main program for codebreaker here.
+    //       Replace any calls to printf() with kprintf().
+    //       Replace any calls to getchar() with kgetc().
+    codebreaker();
+
+	
 	kprintf("===TEST END===");
 
     while (1)
