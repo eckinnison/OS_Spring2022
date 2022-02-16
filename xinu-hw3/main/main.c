@@ -233,7 +233,7 @@ process main(void)
 	kprintf("Enter your codebreaker text:\r\n");
 
 	while ((c = kgetc()) != EOF && c!=4) {
-		if (c = BACKSLASH_R_ASCII) {
+		if (c == BACKSLASH_R_ASCII) {
 
 		}
 		else {
