@@ -14,6 +14,8 @@
 #include <xinu.h>
 
 #define UNGETMAX 10             /* Can un-get at most 10 characters. */
+#define ENTER_ASCII 10
+#define RETURN_ASCII 13
 
 static unsigned char ungetArray[UNGETMAX];
 /**
@@ -125,7 +127,8 @@ syscall kputc(uchar c)
    
    // regptr->dr = c;
 
-    if (c == '\r') {
+    if (c == ENTER_ASCII) {
+        regptr->dr = RETURN_ASCII;
         while (((regptr->fr) & (PL011_FR_TXFF))) {
         }
     }
