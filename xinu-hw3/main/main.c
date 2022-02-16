@@ -227,11 +227,9 @@ process main(void)
 
 	while ((c = kgetc()) != EOF && c!=4) {
 		c = toupper(c);
-			kputc(c);
-		
-			//kprintf("%d\r\n", index);//%d prints numbers
-			textarr[index] = c;
-			index++;
+		kputc(c);
+		textarr[index] = c;
+		index++;
 		
 	}
 

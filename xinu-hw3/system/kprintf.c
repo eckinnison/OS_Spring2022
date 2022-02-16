@@ -36,8 +36,6 @@ syscall kgetc(void) //*****************HELP*************
     //       once the receiver is not empty, get character c.
     unsigned char c = 0;
 
-    //if (kcheckc()) { //check to make sure there is something in the register
-    //}
     if (kcheckc()) {
         for (int k = 0; k < UNGETMAX; k++) {
             if (ungetArray[k] != NULL) {
@@ -47,15 +45,14 @@ syscall kgetc(void) //*****************HELP*************
             }
         }
     }
-    //if (i > 0) {    //if there is something in the array
-      //  i--;
-        //return (int)ungetArray[i];
-   // }
-   
-        while ((regptr->fr) & (PL011_FR_RXFE)) {
-        }
-        c = regptr->dr;
-        return (int)c;
+    
+    while ((regptr->fr) & (PL011_FR_RXFE)) {
+    }
+    if (c = "/r") {
+        kprintf("here");
+    }
+    c = regptr->dr;
+    return (int)c;
     
 }
 
@@ -148,7 +145,6 @@ syscall kprintf(const char* format, ...)
 {
     int retval;
     va_list ap;
-
     va_start(ap, format);
     retval = _doprnt(format, ap, (int (*)(int, int))kputc, 0);
     va_end(ap);
