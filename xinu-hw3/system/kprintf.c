@@ -122,11 +122,11 @@ syscall kputc(uchar c)
 
     while ((regptr->fr) & (PL011_FR_TXFF)) {
     }
-
-    regptr->dr = c;
     if (c = '\n') {
         c = '\r\n';
     }
+    regptr->dr = c;
+    
     return(int)c;
 }
 
