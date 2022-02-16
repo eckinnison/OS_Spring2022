@@ -48,9 +48,7 @@ syscall kgetc(void) //*****************HELP*************
     
     while ((regptr->fr) & (PL011_FR_RXFE)) {
     }
-    if (c == "/r/n") {
-        kprintf("here");
-    }
+    
     c = regptr->dr;
     return (int)c;
     

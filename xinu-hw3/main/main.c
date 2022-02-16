@@ -19,6 +19,7 @@
  * does when it starts up.
  */
 #define SPACE_ASCII 32
+#define BACKSLASH_R_ASCII 13
 #define ENTER_ASCII 10
 #define NUM_ALPHA_PLUS_ONE 27
 #define DECODED_SPACE 0
@@ -118,6 +119,9 @@ int decoder_ring(int* data, int key) {
 				if (c == SPACE_ASCII) {	//if its  a space, force it to 0
 					c = DECODED_SPACE;
 				}
+				else if (c == BACKSLASH_R_ASCII) {
+					c = 100;
+				}
 				else if (c == ENTER_ASCII) {	//if its an enter, reset everything, make c a non reachable number otherwise
 					c = 100;
 				}
@@ -166,6 +170,9 @@ int decoder_ring(int* data, int key) {
 					//printf("\n");
 					decoded_data[j] = ENTER_ASCII;
 					j++;
+				}
+				else if (c == BACKSLASH_R_ASCII) {
+
 				}
 				else {
 					//printf(" ");
