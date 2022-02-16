@@ -42,7 +42,7 @@ syscall kgetc(void) //*****************HELP*************
                 c=ungetArray[k];
                 ungetArray[k] = NULL;
                 if (c == '\r') {
-                    c = NULL;
+                    c = '\n';
                 }
                 return(int) c;
             }
