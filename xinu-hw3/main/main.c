@@ -44,7 +44,7 @@ void decoder_ring_printer(int* data, int key, int index) {
 				}
 				else if (c == ENTER_ASCII) {	//if its an enter, reset everything, make c a non reachable number otherwise
 					c = 100;
-					kprintf("\r\n");
+					kprintf("\n");
 
 				}
 				else {	//make the value 0 to 26
@@ -88,7 +88,7 @@ void decoder_ring_printer(int* data, int key, int index) {
 					c = DECODED_SPACE;
 					previous = 0;
 					sum = 0;
-					kprintf("\r\n");
+					kprintf("\n");
 				}
 				else {
 					kprintf(" ");
@@ -198,7 +198,7 @@ int decoder_ring(int* data, int key) {
 }
 process main(void)
 {
-    kprintf("Hello Xinu World!\r\n");
+    kprintf("Hello Xinu World!\n");
 
 
    // testcases();
@@ -230,7 +230,7 @@ process main(void)
 	int keyfirst = 0;
 	int keysecond = 0;
 	int keytemp = 0;
-	kprintf("Enter your codebreaker text:\r\n");
+	kprintf("Enter your codebreaker text:\n");
 
 	while ((c = kgetc()) != EOF && c!=4) {
 		if (c == BACKSLASH_R_ASCII) {
@@ -269,10 +269,10 @@ process main(void)
 	}
 
 
-	kprintf("Most probable key is %d\r\n", keysecond);
+	kprintf("Most probable key is %d\n", keysecond);
 
 	decoder_ring_printer(textarr, keysecond, index);
-	kprintf("\r\n");
+	kprintf("\n");
 	kprintf("===TEST END===");
 
     while (1)
