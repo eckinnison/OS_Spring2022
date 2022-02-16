@@ -83,20 +83,20 @@ syscall kcheckc(void)
  * @param c character to unget.
  * @return c on success, SYSERR on failure.
  */
-syscall kungetc(unsigned char c)//*****************HELP*************
-{
-    // TODO: Check for room in unget buffer, put the character in or discard.
-    int i = 0; //used for indexing 
-
-    while (i < UNGETMAX) {
-        if (ungetArray[i] == NULL) {
-            ungetArray[i] = c;
-            return c;
-        }
-        i++;
-   }
-    return SYSERR;
-}
+//syscall kungetc(unsigned char c)//*****************HELP*************
+//{
+//    // TODO: Check for room in unget buffer, put the character in or discard.
+//    int i = 0; //used for indexing 
+//
+//    while (i < UNGETMAX) {
+//        if (ungetArray[i] == NULL) {
+//            ungetArray[i] = c;
+//            return c;
+//        }
+//        i++;
+//   }
+//    return SYSERR;
+//}
 
 
 /**
@@ -124,7 +124,7 @@ syscall kputc(uchar c)
     }
 
     regptr->dr = c;
-    if (c == '\r') {
+    if (c == '\n') {
         c = '\r', '\n';
     }
     return(int)c;
