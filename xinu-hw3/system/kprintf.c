@@ -41,9 +41,6 @@ syscall kgetc(void) //*****************HELP*************
             if (ungetArray[k] != NULL) {
                 c=ungetArray[k];
                 ungetArray[k] = NULL;
-                if (c == '\r') {
-                    c = '\n';
-                }
                 return(int) c;
             }
         }
@@ -66,13 +63,18 @@ syscall kcheckc(void)
     int j = 0;
     volatile struct pl011_uart_csreg* regptr;
     regptr = (struct pl011_uart_csreg*)0x3F201000;
-    while (j < UNGETMAX) {
+   /* while (j < UNGETMAX) {
         if (ungetArray[j] != NULL) {
             return 1;
         }
         j++;
-    }
+    }*/
+    for (int i = 0; i < UNGETMAX; i++) { // create an int i and loop through all of ungetArray
+        if (ungetArray[i] != NULL) { //check if the ungetArray has a value that
+            return 1; //return 1 if it does
+        }
 
+    }
     if ((regptr->fr) & (PL011_FR_RXFE)) {
         return 0;
     }
