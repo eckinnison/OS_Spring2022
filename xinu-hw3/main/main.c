@@ -233,10 +233,16 @@ process main(void)
 	kprintf("Enter your codebreaker text:\r\n");
 
 	while ((c = kgetc()) != EOF && c!=4) {
-		c = toupper(c);
-		kputc(c);
-		textarr[index] = c;
-		index++;
+		if (c = BACKSLASH_R_ASCII) {
+
+		}
+		else {
+			c = toupper(c);
+			kputc(c);
+			textarr[index] = c;
+			index++;
+		}
+		
 		
 	}
 
