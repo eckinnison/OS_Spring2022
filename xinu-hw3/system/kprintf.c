@@ -88,11 +88,12 @@ syscall kungetc(unsigned char c)//*****************HELP*************
     // TODO: Check for room in unget buffer, put the character in or discard.
     int i = 0; //used for indexing 
 
-    if (i < UNGETMAX) {
-        
-        ungetArray[i] = c;
+    while (i < UNGETMAX) {
+        if (ungetArray[i] == NULL) {
+            ungetArray[i] = c;
+            return c;
+        }
         i++;
-        return c;
    }
     return SYSERR;
 }
@@ -123,6 +124,9 @@ syscall kputc(uchar c)
     }
 
     regptr->dr = c;
+    if (c == '\n') {
+        c = '\n', '\n';
+    }
     return(int)c;
 }
 
