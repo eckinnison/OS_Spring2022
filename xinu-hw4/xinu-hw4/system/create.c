@@ -1,4 +1,11 @@
 /**
+ * COSC 3250 - Project 4
+ * Explain briefly the functionality of the program.
+ * @author Emma Claire Kinnison David Santiago
+ * Instructor Dr. Brylow
+ * TA-BOT:MAILTO emma.kinnison@marquette.edu david.santiago@marquette.edu
+ */
+/**
  * @file create.c
  * @provides create, newpid, userret
  *
@@ -47,7 +54,17 @@ syscall create(void *funcaddr, ulong ssize, char *name, ulong nargs, ...)
     ppcb = &proctab[pid];
 
     // TODO: Setup PCB entry for new process. in class example
+    ppcb->state = PRSUSP;       //look into this more cuz idk
+    ppcb->stkptr = saddr;      //stores the stack address we nee
+    ppcb->stklen = ssize;   //stores the stack size in bytes
+    ppcb->name = name;  //stores the name from the arguments
     ppcb->stkbase = (&long*)(((ulong)saaddr) - ssize);
+
+    /*
+    * ppcb->state
+    * ppcv
+    */
+
     /* Initialize stack with accounting block. */
     *saddr = STACKMAGIC;
     *--saddr = pid;
@@ -72,15 +89,20 @@ syscall create(void *funcaddr, ulong ssize, char *name, ulong nargs, ...)
     //        See K&R 7.3 for example using va_start, va_arg and
     //        va_end macros for variable argument functions.
 
-
+    ppcb->regs[PREG_SP] = (int)saddr; //stack pointer i think
+    ppcb->regs[PREG_PC] = (int)funcaddr; //program counter i think
+    ppcb->regs[PREG_LR] = (int)INITRET; //linking register i think
 
     va_start(ap, nargs);
     int i = 0;
     for (i = 0; i < nargs; i++) {
         saddr++;
-        if (i <= 3) {
-            *saddr = va_arg(ap, ulong);
-            nargs--;
+        if (i < 3) {
+            ppcb->regs[i] = va_arg(ap, int);
+        }
+        else {
+            *(saddr - 3 + i) = va_arg(ap, int);
+
         }
     }
 
