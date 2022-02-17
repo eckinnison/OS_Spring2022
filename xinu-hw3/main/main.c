@@ -228,7 +228,7 @@ void codebreaker(){
 	int keytemp = 0;
 	kprintf("Enter your codebreaker text:\n");
 
-	while ((c = kgetc()) != EOF ) {
+	while ((c = kgetc()) != EOF & c != EOT) {
 		
 			c = toupper(c);
 			kputc(c);
