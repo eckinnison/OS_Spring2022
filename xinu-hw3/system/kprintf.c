@@ -16,6 +16,7 @@
 #define UNGETMAX 10             /* Can un-get at most 10 characters. */
 #define ENTER_ASCII 10          //no magic numbers
 #define RETURN_ASCII 13
+#define EOT 4
 
 static unsigned char ungetArray[UNGETMAX];
 /**
@@ -43,6 +44,10 @@ syscall kgetc(void) //*****************HELP*************
             if (ungetArray[k] != NULL) {        //if its null put the char in the array
                 c=ungetArray[k];
                 ungetArray[k] = NULL;
+                if (c == EOT) {
+                    c = EOF;
+                    return c;
+                }
                 return(int) c;
             }
         }

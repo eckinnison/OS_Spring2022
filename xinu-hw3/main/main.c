@@ -227,16 +227,13 @@ void codebreaker(){
 	int keytemp = 0;
 	kprintf("Enter your codebreaker text:\n");
 
-	while ((c = kgetc()) != EOF && c != 4) {
-		if (c == BACKSLASH_R_ASCII) {
-
-		}
-		else {
+	while ((c = kgetc()) != EOF ) {
+		
 			c = toupper(c);
 			kputc(c);
 			textarr[index] = c;
 			index++;
-		}
+		
 
 
 	}
