@@ -12,6 +12,12 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <ctype.h>
+int SPACE_ASCII = 32;
+int ENTER_ASCII = 10;
+int NUM_ALPHA_PLUS_ONE = 27;
+int DECODED_SPACE = 0;
+int UPPER_E_ASCII = 69;
+
 void decoder_ring_printer(int* data, int key, int index){
     int c= 0;			//initilization
 	int previousc=0;
@@ -25,10 +31,10 @@ void decoder_ring_printer(int* data, int key, int index){
 		}
 		else{	//do this
 			if((isalpha(c))||(isspace(c))){
-				if(c==32){	//if its  a space, force it to 0
-					c=0;
+				if(c== SPACE_ASCII){	//if its  a space, force it to 0
+					c= DECODED_SPACE;
 				}
-				else if(c==10){	//if its an enter, reset everything, make c a non reachable number otherwise
+				else if(c== ENTER_ASCII){	//if its an enter, reset everything, make c a non reachable number otherwise
 					c=100;
 					kprintf("\n");
 
@@ -36,9 +42,9 @@ void decoder_ring_printer(int* data, int key, int index){
 				else{	//make the value 0 to 26
 					c=c-64;
 				}
-				sum=c-((previous+key)%27);	//decode
+				sum=c-((previous+key)%NUM_ALPHA_PLUS_ONE);	//decode
 				if(sum<0){
-					sum=sum+27;
+					sum=sum+NUM_ALPHA_PLUS_ONE;
 				}
 			
 				int i=0;
@@ -48,7 +54,7 @@ void decoder_ring_printer(int* data, int key, int index){
 					if(sum<0){	//add to 64
 						kputc(previous+64);
 					}
-					if(sum==0){		//make a space
+					if(sum==DECODED_SPACE){		//make a space
 						kprintf(" ");
 
 					}
@@ -70,8 +76,8 @@ void decoder_ring_printer(int* data, int key, int index){
 				}
 			}
 			else{
-				if(c==10){
-					c=0;
+				if(c== ENTER_ASCII){
+					c=DECODED_SPACE;
 					previous=0;
 					sum=0;
 					kprintf("\n");
@@ -96,48 +102,37 @@ int decoder_ring(int* data, int key){
     int decoded_data[1025];
     while(y<1025){	//auto cast the input char to an uppercase letter, run while loop while not the EOF char
         c=data[y];
-        //printf("this is the value of the data %i", data[y]);
-       // printf("%d,",data[y]);
+        
         if(c==EOF){
             y=1026;
 		}
 		else{	//do this
 			if((isalpha(c))||(isspace(c))){
-				if(c==32){	//if its  a space, force it to 0
-					c=0;
+				if(c== SPACE_ASCII){	//if its  a space, force it to 0
+					c=DECODED_SPACE;
 				}
-				else if(c==10){	//if its an enter, reset everything, make c a non reachable number otherwise
+				else if(c== ENTER_ASCII){	//if its an enter, reset everything, make c a non reachable number otherwise
 					c=100;
 				}
 				else{	//make the value 0 to 26
 					c=c-64;
 				}
 				//sum=c-previous-key;	//decode
-				sum=c-((previous+key)%27);	//decode
+				sum=c-((previous+key)%NUM_ALPHA_PLUS_ONE);	//decode
 				if(sum<0){
-					sum=sum+27;
+					sum=sum+NUM_ALPHA_PLUS_ONE;
 				}
 				int i=0;
-				// while(i==0){	//make it so if the indexes are weird they can be adjusted properly
-				// 	if(sum==0){
-				// 		i=1;
-				// 	}
-				// 	if((sum<0)){	//this helps to handle negative values
-				// 		sum=sum+27;
-				// 	}
-				// 	else{
-				// 		i=1;
-				// 	}
-				// }	
+					
 				if((c!=100)){		//these are our enter and spaces
 					if(sum<0){	//add to 64
 						//putchar(previous+64);
                         decoded_data[j] =previous+64;
                         j++;
 					}
-					if(sum==0){		//make a space
+					if(sum==DECODED_SPACE){		//make a space
 						//printf(" ");
-                        decoded_data[j] =0;
+                        decoded_data[j] =DECODED_SPACE;
                         j++;
 					}
 					else{		//make the correct uppercase value
@@ -157,17 +152,17 @@ int decoder_ring(int* data, int key){
 				}
 			}
 			else{
-				if(c==10){
-					c=0;
+				if(c==ENTER_ASCII){
+					c=DECODED_SPACE;
 					previous=0;
 					sum=0;
 					//printf("\n");
-                    decoded_data[j] =10;
+                    decoded_data[j] =ENTER_ASCII;
                     j++;
 				}
 				else{
 					//printf(" ");
-                    decoded_data[j] =0;
+                    decoded_data[j] =DECODED_SPACE;
                     j++;
 				}
 			}
@@ -178,15 +173,13 @@ int decoder_ring(int* data, int key){
     int counter=0;
     int k=0;
     while(k<1025){
-        if(decoded_data[k]==69){
+        if(decoded_data[k]==UPPER_E_ASCII){
             counter++;
-			//printf("%d\n", decoded_data[k]);
         }
         else{
         }
         k++;
     }
-	//printf("end counter: %d\n", counter);
     return counter;
 }
 
@@ -247,12 +240,7 @@ int main(int argc, char **argv){
 		}
 		indexlooper++;
 	}
-                
-           
-
-            
-        
-
+  
 
     printf("Most probable key is %d\n", keysecond);
 
