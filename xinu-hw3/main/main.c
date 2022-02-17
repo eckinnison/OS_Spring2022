@@ -28,6 +28,7 @@
 #define UPPER_E_ASCII 69
 #define EOT 4
 #define ADJUSTER 64
+#define MAXKEY 27
 
 //this prints out the result of the decoder once it has figured out what the correct result is
 void decoder_ring_printer(int* data, int key, int index) {
@@ -227,7 +228,7 @@ void codebreaker(){
 	int keytemp = 0;
 	kprintf("Enter your codebreaker text:\n");
 
-	while ((c = kgetc()) != EOF ) {
+	while ((c = kgetc()) != EOF & c != EOT) {
 		
 			c = toupper(c);
 			kputc(c);
@@ -237,7 +238,7 @@ void codebreaker(){
 
 
 	}
-
+	textarr[index] = -1;		 //this signifies EOF
 	while (indexlooper < 27) {						//make sure all the different indexes work
 		keykey = decoder_ring(textarr, indexlooper);
 		if (second == keykey) {
