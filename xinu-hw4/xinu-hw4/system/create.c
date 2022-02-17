@@ -45,7 +45,7 @@ syscall create(void *funcaddr, ulong ssize, char *name, ulong nargs, ...)
     numproc++;
     ppcb = &proctab[pid];
 
-    // TODO: Setup PCB entry for new process.
+    // TODO: Setup PCB entry for new process. in class example
 
     /* Initialize stack with accounting block. */
     *saddr = STACKMAGIC;
@@ -71,6 +71,11 @@ syscall create(void *funcaddr, ulong ssize, char *name, ulong nargs, ...)
     //        See K&R 7.3 for example using va_start, va_arg and
     //        va_end macros for variable argument functions.
 
+
+
+    va_start(ap, nargs);
+
+    va_end(ap);
     return pid;
 }
 

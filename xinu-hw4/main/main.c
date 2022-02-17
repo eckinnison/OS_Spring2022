@@ -21,8 +21,10 @@ process main(void)
     kprintf("Hello Xinu World!\r\n");
 
    // kprintf("Enter your codebreaker text:\r\n");
-
+    create();
     testcases();
+    //ctxsw();
+   
     // TODO: Put your main program for codebreaker here.
     //       Replace any calls to printf() with kprintf().
     //       Replace any calls to getchar() with kgetc().
