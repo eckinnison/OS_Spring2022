@@ -47,7 +47,7 @@ syscall create(void *funcaddr, ulong ssize, char *name, ulong nargs, ...)
     ppcb = &proctab[pid];
 
     // TODO: Setup PCB entry for new process. in class example
-    ppcb->stkbase = (&long*)(((ulong)saaddr) - SSIZE);
+    ppcb->stkbase = (&long*)(((ulong)saaddr) - ssize);
     /* Initialize stack with accounting block. */
     *saddr = STACKMAGIC;
     *--saddr = pid;
