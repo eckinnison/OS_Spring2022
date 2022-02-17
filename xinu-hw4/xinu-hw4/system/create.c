@@ -7,6 +7,7 @@
 /* Embedded XINU, Copyright (C) 2008.  All rights reserved. */
 
 #include <xinu.h>
+#include <arm.h>
 
 static pid_typ newpid(void);
 void userret(void);
@@ -74,6 +75,15 @@ syscall create(void *funcaddr, ulong ssize, char *name, ulong nargs, ...)
 
 
     va_start(ap, nargs);
+    int i = 0;
+    for (i = 0; i < nargs; i++) {
+        saddr++;
+        if (i <= 3) {
+            *saddr = va_arg(ap, ulong);
+            nargs--;
+        }
+    }
+
 
     va_end(ap);
     return pid;

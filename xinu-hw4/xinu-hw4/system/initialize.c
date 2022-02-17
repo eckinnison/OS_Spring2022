@@ -53,7 +53,7 @@ void nulluser(void)
     testcases();
 
     /* Call the main program */
-//      ready(create((void *) main, INITSTK, "MAIN", 2, 0, NULL), 0);
+    ready(create((void *) main, INITSTK, "MAIN", 2, 0, NULL), 0);
 
     /* null process has nothing else to do but cannot exit  */
     while (1)
