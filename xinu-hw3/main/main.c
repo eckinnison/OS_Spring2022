@@ -228,7 +228,7 @@ void codebreaker(){
 	int keytemp = 0;
 	kprintf("Enter your codebreaker text:\n");
 
-	while ((c = kgetc()) != EOF & c != EOT) {
+	while ((c = kgetc()) != EOF ) {
 		
 			c = toupper(c);
 			kputc(c);
@@ -239,7 +239,7 @@ void codebreaker(){
 
 	}
 	textarr[index] = -1;		 //this signifies EOF
-	while (indexlooper < 27) {						//make sure all the different indexes work
+	while (indexlooper < MAXKEY) {						//make sure all the different indexes work
 		keykey = decoder_ring(textarr, indexlooper);
 		if (second == keykey) {
 		}
