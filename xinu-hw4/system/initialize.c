@@ -1,4 +1,11 @@
 /**
+ * COSC 3250 - Project 4
+ * Explain briefly the functionality of the program.
+ * @author Emma Claire Kinnison David Santiago
+ * Instructor Dr. Brylow
+ * TA-BOT:MAILTO emma.kinnison@marquette.edu david.santiago@marquette.edu
+ */
+ /**
  * @file initialize.c
  * The system begins intializing after the C environment has been
  * established.  After intialization, the null process remains always in

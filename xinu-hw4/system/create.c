@@ -1,4 +1,11 @@
 /**
+ * COSC 3250 - Project 4
+ * Explain briefly the functionality of the program.
+ * @author Emma Claire Kinnison David Santiago
+ * Instructor Dr. Brylow
+ * TA-BOT:MAILTO emma.kinnison@marquette.edu david.santiago@marquette.edu
+ */
+ /**
  * @file create.c
  * @provides create, newpid, userret
  *
@@ -7,6 +14,8 @@
 /* Embedded XINU, Copyright (C) 2008.  All rights reserved. */
 
 #include <xinu.h>
+#include<stdarg.h>
+#include<stdio.h>
 
 static pid_typ newpid(void);
 void userret(void);
@@ -45,7 +54,11 @@ syscall create(void *funcaddr, ulong ssize, char *name, ulong nargs, ...)
     ppcb = &proctab[pid];
 	
 	// TODO: Setup PCB entry for new process.
-
+    ppcb->stkbase = (ulong*)(((ulong)saddr) - ssize);
+    ppcb->state = PRSUSP; //???
+    ppcb->stkptr = saddr; //strores the pointer
+    ppcb->stklen = ssize; //stores the size
+    ppcb->name = name; // stores the name
     /* Initialize stack with accounting block. */
     *saddr = STACKMAGIC;
     *--saddr = pid;
@@ -65,10 +78,28 @@ syscall create(void *funcaddr, ulong ssize, char *name, ulong nargs, ...)
     }
 
 	// TODO: Initialize process context.
-	//
+
+    ppcb->reg[CTX_SP] = saddr; // register 13
+    ppcb->reg[CTX_LR] = userret; // register 14
+    ppcb->reg[CTX_PC] = funcaddr; // register 15
+
 	// TODO:  Place arguments into activation record.
 	//        See K&R 7.3 for example using va_start, va_arg and
 	//        va_end macros for variable argument functions.
+
+    char* p; //this will need to be changwed to something else
+    va_start(ap, nargs);
+
+    // goes through amount of arguments to add to stack
+    for (int i = 0; i < nargs; i++) {
+        if (i < 3) { // iterates through registers
+            ppcb->regs[i] = va_arg(ap, int);
+        else { // puts in stack
+            *(saddr + i - 3) = va_arg(ap, int);
+        }
+        }
+
+        va_end(ap);
 
     return pid;
 }
