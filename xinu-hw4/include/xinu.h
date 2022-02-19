@@ -3,6 +3,8 @@
 #include <conf.h>
 #include <arm.h>
 #include <arm-atag.h>
+#include <proc.h>
+#include <queue.h>
 #include <compiler.h>
 #include <memory.h>
 #include <stdarg.h>

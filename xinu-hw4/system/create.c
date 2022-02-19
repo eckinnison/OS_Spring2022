@@ -1,20 +1,12 @@
 /**
- * COSC 3250 - Project 4
- * Explain briefly the functionality of the program.
- * @author Emma Claire Kinnison David Santiago
- * Instructor Dr. Brylow
- * TA-BOT:MAILTO emma.kinnison@marquette.edu david.santiago@marquette.edu
- */
-/**
  * @file create.c
  * @provides create, newpid, userret
  *
- * COSC 3250 / COEN 4820 Assignment 4
+ * COSC 3250 Assignment 4
  */
 /* Embedded XINU, Copyright (C) 2008.  All rights reserved. */
 
 #include <xinu.h>
-#include <arm.h>
 
 static pid_typ newpid(void);
 void userret(void);
@@ -36,7 +28,6 @@ syscall create(void *funcaddr, ulong ssize, char *name, ulong nargs, ...)
     ulong i;
     va_list ap;                 /* points to list of var args   */
     ulong pads = 0;             /* padding entries in record.   */
-    void INITRET(void);
 
     if (ssize < MINSTK)
         ssize = MINSTK;
@@ -52,18 +43,8 @@ syscall create(void *funcaddr, ulong ssize, char *name, ulong nargs, ...)
 
     numproc++;
     ppcb = &proctab[pid];
-
-    // TODO: Setup PCB entry for new process. in class example
-    ppcb->state = PRSUSP;       //look into this more cuz idk
-    ppcb->stkptr = saddr;      //stores the stack address we nee
-    ppcb->stklen = ssize;   //stores the stack size in bytes
-    ppcb->name = name;  //stores the name from the arguments
-    ppcb->stkbase = (&long*)(((ulong)saaddr) - ssize);
-
-    /*
-    * ppcb->state
-    * ppcv
-    */
+	
+	// TODO: Setup PCB entry for new process.
 
     /* Initialize stack with accounting block. */
     *saddr = STACKMAGIC;
@@ -83,31 +64,12 @@ syscall create(void *funcaddr, ulong ssize, char *name, ulong nargs, ...)
         *--saddr = 0;
     }
 
-    // TODO: Initialize process context.
-    //
-    // TODO:  Place arguments into activation record.
-    //        See K&R 7.3 for example using va_start, va_arg and
-    //        va_end macros for variable argument functions.
+	// TODO: Initialize process context.
+	//
+	// TODO:  Place arguments into activation record.
+	//        See K&R 7.3 for example using va_start, va_arg and
+	//        va_end macros for variable argument functions.
 
-    ppcb->regs[PREG_SP] = (int)saddr; //stack pointer i think
-    ppcb->regs[PREG_PC] = (int)funcaddr; //program counter i think
-    ppcb->regs[PREG_LR] = (int)INITRET; //linking register i think
-
-    va_start(ap, nargs);
-    int i = 0;
-    for (i = 0; i < nargs; i++) {
-        saddr++;
-        if (i < 3) {
-            ppcb->regs[i] = va_arg(ap, int);
-        }
-        else {
-            *(saddr - 3 + i) = va_arg(ap, int);
-
-        }
-    }
-
-
-    va_end(ap);
     return pid;
 }
 

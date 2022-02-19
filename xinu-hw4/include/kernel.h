@@ -26,6 +26,11 @@ syscall kgetc(void);
 syscall kcheckc(void);
 syscall kvprintf(const char *fmt, va_list va);
 
+syscall create(void *, ulong, char *, ulong, ...);
+syscall kill(pid_typ);
+syscall ready(pid_typ, bool);
+syscall resched(void);
+
 /* Assertions */
 #define ASSERT(cond)              if ( !(cond) ) return SYSERR
 #define ASSERTFUNC(func_call)     ASSERT((func_call) == OK)
