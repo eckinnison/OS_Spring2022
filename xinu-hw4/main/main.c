@@ -1,5 +1,5 @@
 /**
- * COSC 3250 - Project 3
+ * COSC 3250 - Project 4
  * Explain briefly the functionality of the program.
  * @author Emma Claire Kinnison David Santiago
  * Instructor Dr. Brylow
