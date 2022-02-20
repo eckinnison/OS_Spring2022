@@ -82,15 +82,12 @@ syscall create(void *funcaddr, ulong ssize, char *name, ulong nargs, ...)
     }
 
 	// TODO: Initialize process context.
-
-    
-
 	// TODO:  Place arguments into activation record.
 	//        See K&R 7.3 for example using va_start, va_arg and
 	//        va_end macros for variable argument functions.
 
-    ppcb->regs[PREG_SP] = (int)saddr; //Stack Pointer
-    ppcb->regs[PREG_PC] = (int)funcaddr; //Program counter
+    ppcb->regs[PRSUSP] = (int)saddr; //Stack Pointer
+    ppcb->regs[PREG_SP] = (int)funcaddr; //Program counter
     ppcb->regs[PREG_LR] = (int)INITRET; //link register
 
     char* p; //this will need to be changwed to something else
