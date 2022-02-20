@@ -94,7 +94,7 @@ syscall create(void *funcaddr, ulong ssize, char *name, ulong nargs, ...)
     // goes through amount of arguments to add to stack
     for (int i = 0; i < nargs; i++) {
         if (i < 3) { // iterates through registers
-            ppcb->regs[i] = va_arg(ap, int);
+            //ppcb->regs[i] = va_arg(ap, int);
         }
         else { // puts in stack
             *(saddr + i - 3) = va_arg(ap, int);
