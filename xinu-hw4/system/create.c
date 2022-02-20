@@ -80,9 +80,9 @@ syscall create(void *funcaddr, ulong ssize, char *name, ulong nargs, ...)
 
 	// TODO: Initialize process context.
 
-    ppcb->reg[CTX_SP] = saddr; // register 13
-    ppcb->reg[CTX_LR] = userret; // register 14
-    ppcb->reg[CTX_PC] = funcaddr; // register 15
+    //ppcb->reg[CTX_SP] = saddr; // register 13
+    //ppcb->reg[CTX_LR] = userret; // register 14
+   // ppcb->reg[CTX_PC] = funcaddr; // register 15
 
 	// TODO:  Place arguments into activation record.
 	//        See K&R 7.3 for example using va_start, va_arg and
@@ -95,9 +95,10 @@ syscall create(void *funcaddr, ulong ssize, char *name, ulong nargs, ...)
     for (int i = 0; i < nargs; i++) {
         if (i < 3) { // iterates through registers
             ppcb->regs[i] = va_arg(ap, int);
+        }
         else { // puts in stack
             *(saddr + i - 3) = va_arg(ap, int);
-        }
+       }
         }
 
         va_end(ap);
