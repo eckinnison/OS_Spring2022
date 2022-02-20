@@ -58,7 +58,7 @@ syscall create(void *funcaddr, ulong ssize, char *name, ulong nargs, ...)
 	
 	// TODO: Setup PCB entry for new process.
     ppcb->stkbase = (ulong*)(((ulong)saddr) - ssize);   //given from class
-    ppcb->state = PRSUSP; //???
+    ppcb->state = PRSUSP; //set to suspend
     ppcb->stkptr = saddr; //strores the pointer
     ppcb->stklen = ssize; //stores the size
     strncpy(ppcb->name, name, PNMLEN);
@@ -86,9 +86,7 @@ syscall create(void *funcaddr, ulong ssize, char *name, ulong nargs, ...)
 	//        See K&R 7.3 for example using va_start, va_arg and
 	//        va_end macros for variable argument functions.
 
-    //ppcb->regs[PRSUSP] = (int)saddr; //Stack Pointer
-    //ppcb->regs[PREG_SP] = (int)funcaddr; //Program counter
-    //ppcb->regs[PREG_LR] = (int)INITRET; //link register
+
 
     char* p; //this will need to be changwed to something else
     va_start(ap, nargs);
