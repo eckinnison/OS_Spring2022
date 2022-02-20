@@ -32,7 +32,25 @@
  * @param  &newstack address of incoming stack save area
  * @return special case -- see above
  */
-ctxsw:
+ctxsw:		//look into this more
+
+mov ip, r0 //move ip to register 0
+str r0, [ip, #CTX_R0*4] // store the contents of r0 in address equal to the sum of ip and r0
+mov r0, ip
+mov ip,r1
+
+str r1, [r0, #CTX_R1*4]
+str r2, [r0, #CTX_R2*4]
+str r3, [r0, #CTX_R3*4]
+str r4, [r0, #CTX_R4*4]
+str r5, [r0, #CTX_R7*4]
+str r6, [r0, #CTX_R6*4]
+str r7, [r0, #CTX_R7*4]
+str r8, [r0, #CTX_R8*4]
+str r9, [r0, #CTX_R9*4]
+str r10, [r0, #CTX_R10*4]
+str r11, [r0, #CTX_R11*4]
+str lr, [r0, #CTX_LR*4]
 
 // TODO: Save process state, including at least the 
 //	callee-save ("non-volatile") registers.

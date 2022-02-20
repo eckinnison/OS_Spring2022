@@ -37,6 +37,7 @@ syscall create(void *funcaddr, ulong ssize, char *name, ulong nargs, ...)
     ulong i;
     va_list ap;                 /* points to list of var args   */
     ulong pads = 0;             /* padding entries in record.   */
+    void INITRET(void);     //IDK what this is
 
     if (ssize < MINSTK)
         ssize = MINSTK;
@@ -54,11 +55,11 @@ syscall create(void *funcaddr, ulong ssize, char *name, ulong nargs, ...)
     ppcb = &proctab[pid];
 	
 	// TODO: Setup PCB entry for new process.
-    ppcb->stkbase = (ulong*)(((ulong)saddr) - ssize);
+    ppcb->stkbase = (ulong*)(((ulong)saddr) - ssize);   //given from class
     ppcb->state = PRSUSP; //???
     ppcb->stkptr = saddr; //strores the pointer
     ppcb->stklen = ssize; //stores the size
-    ppcb->name = name; // stores the name
+    //ppcb->name = name; // stores the name
     /* Initialize stack with accounting block. */
     *saddr = STACKMAGIC;
     *--saddr = pid;
