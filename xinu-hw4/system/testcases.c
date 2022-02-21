@@ -111,10 +111,13 @@ void testcases(void)
                      0x55555555, 0x66666666, 0x77777777, 0x88888888);
         printpcb(pid);
         // TODO: print out stack with extra args
+        
+        /* Print PCB contents and registers */
+        kprintf("Base of run time stack    : 0x%08X \r\n", ppcb->stkbase);
+        kprintf("Stack length of process   : %8u \r\n", ppcb->stklen);
+        
         // TODO: ready(pid, RESCHED_YES);
         ready(pid, RESCHED_YES);
-
-        kprintf("here\r\n");
 
         break;
 
