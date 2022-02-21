@@ -112,6 +112,8 @@ void testcases(void)
         printpcb(pid);
         // TODO: print out stack with extra args
         // TODO: ready(pid, RESCHED_YES);
+        ready(create((void*)pid, INITSTK, "MAIN2", 2, 0, NULL),
+            RESCHED_YES);
         break;
 
     case '2':
