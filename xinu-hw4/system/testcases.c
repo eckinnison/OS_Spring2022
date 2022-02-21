@@ -114,6 +114,8 @@ void testcases(void)
         // TODO: ready(pid, RESCHED_YES);
         ready(create((void*)pid, INITSTK, "MAIN2", 2, 0, NULL),
             RESCHED_YES);
+        kprintf("here\r\n");
+
         break;
 
     case '2':
