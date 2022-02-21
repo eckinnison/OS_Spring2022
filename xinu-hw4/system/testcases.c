@@ -112,7 +112,7 @@ void testcases(void)
         printpcb(pid);
         // TODO: print out stack with extra args
         // TODO: ready(pid, RESCHED_YES);
-        read(pid, RESCHED_YES);
+        ready(pid, RESCHED_YES);
 
         kprintf("here\r\n");
 
