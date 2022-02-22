@@ -90,23 +90,44 @@ syscall create(void *funcaddr, ulong ssize, char *name, ulong nargs, ...)
 
     // goes through amount of arguments to add to stack
     for (int i = 0; i < nargs; i++) {
-        if (i > 3) { // iterates through registers
+        if (i > 4) { // iterates through registers
         }
         else { // puts in stack
             *(saddr + i - 3) = va_arg(ap, int);
         }
     }
     va_end(ap);
-    *--saddr=funcaddr;
-    *--saddr=&userret;
+  //  *--saddr=funcaddr;
+   // *--saddr=&userret;
+   
 
-    for (i = 0; i < 15; i++)
+    for (i = 0; i < 16; i++)
         {
-            
             *--saddr = 0;
         }
+        saddr[CTX_R0]=0;
+        saddr[CTX_LR]=&userret;
+        saddr[CTX_PC]=funcaddr;
+
     ppcb->stkptr = saddr; //strores the pointer
-    kprintf("ppcb->stkptr = 0x%08X\n",ppcb->stkptr);
+    /*kprintf("ppcb->stkptr = 0x%08X\n",ppcb->stkptr);
+
+    kprintf("saddr[CTX_R0] = 0x%08X\n",&saddr[CTX_R0]);
+    kprintf("saddr[CTX_R1] = 0x%08X\n",&saddr[CTX_R1]);
+    kprintf("saddr[CTX_R2] = 0x%08X\n",&saddr[CTX_R2]);
+    kprintf("saddr[CTX_R3] = 0x%08X\n",&saddr[CTX_R3]);
+    kprintf("saddr[CTX_R4] = 0x%08X\n",&saddr[CTX_R4]);
+    kprintf("saddr[CTX_R5] = 0x%08X\n",&saddr[CTX_R5]);
+    kprintf("saddr[CTX_R6] = 0x%08X\n",&saddr[CTX_R6]);
+    kprintf("saddr[CTX_R7] = 0x%08X\n",&saddr[CTX_R7]);
+    kprintf("saddr[CTX_R8] = 0x%08X\n",&saddr[CTX_R8]);
+    kprintf("saddr[CTX_R9] = 0x%08X\n",&saddr[CTX_R9]);
+    kprintf("saddr[CTX_R10] = 0x%08X\n",&saddr[CTX_R10]);
+    kprintf("saddr[CTX_R11] = 0x%08X\n",&saddr[CTX_R11]);
+    kprintf("saddr[CTX_IP] = 0x%08X\n",&saddr[CTX_IP]);
+    kprintf("saddr[CTX_SP] = 0x%08X\n",&saddr[CTX_SP]);
+    kprintf("saddr[CTX_LR] = 0x%08X\n",&saddr[CTX_LR]);
+    kprintf("saddr[CTX_PC] = 0x%08X\n",&saddr[CTX_PC]);*/
     return pid;
 }
 
