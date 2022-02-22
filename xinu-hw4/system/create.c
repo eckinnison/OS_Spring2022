@@ -86,23 +86,27 @@ syscall create(void *funcaddr, ulong ssize, char *name, ulong nargs, ...)
 	//        See K&R 7.3 for example using va_start, va_arg and
 	//        va_end macros for variable argument functions.
 
-
-
-    char* p; //this will need to be changwed to something else
     va_start(ap, nargs);
 
     // goes through amount of arguments to add to stack
     for (int i = 0; i < nargs; i++) {
-        if (i < 3) { // iterates through registers
-            *++saddr;
+        if (i > 3) { // iterates through registers
         }
         else { // puts in stack
             *(saddr + i - 3) = va_arg(ap, int);
-       }
         }
+    }
+    va_end(ap);
+    *--saddr=funcaddr;
+    *--saddr=&userret;
 
-        va_end(ap);
-
+    for (i = 0; i < 15; i++)
+        {
+            
+            *--saddr = 0;
+        }
+    ppcb->stkptr = saddr; //strores the pointer
+    kprintf("ppcb->stkptr = 0x%08X\n",ppcb->stkptr);
     return pid;
 }
 

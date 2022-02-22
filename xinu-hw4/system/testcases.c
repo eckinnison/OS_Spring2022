@@ -28,7 +28,7 @@ int testmain(int argc, char **argv)
         kprintf("This is process %d\r\n", currpid);
 
         /* Uncomment the resched() line for cooperative scheduling. */
-        // resched();
+        resched();
     }
     return 0;
 }
@@ -111,13 +111,7 @@ void testcases(void)
                      0x55555555, 0x66666666, 0x77777777, 0x88888888);
         printpcb(pid);
         // TODO: print out stack with extra args
-        
-        /* Print PCB contents and registers */
-        kprintf("Base of run time stack    : 0x%08X \r\n", ppcb->stkbase);
-        kprintf("Stack length of process   : %8u \r\n", ppcb->stklen);
-        
         // TODO: ready(pid, RESCHED_YES);
-        ready(pid, RESCHED_YES);
 
         break;
 
@@ -127,8 +121,10 @@ void testcases(void)
               RESCHED_NO);
         ready(create((void *)testmain, INITSTK, "MAIN2", 2, 0, NULL),
               RESCHED_NO);
+        kprintf("pre break\r\n");
         ready(create((void *)testmain, INITSTK, "MAIN3", 2, 0, NULL),
               RESCHED_YES);
+        kprintf("Got here\r\n");
         break;
 
     default:

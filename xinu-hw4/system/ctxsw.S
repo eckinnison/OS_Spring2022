@@ -34,23 +34,39 @@
  */
 ctxsw:		//look into this more
 
-mov ip, r0 //move ip to register 0
-str r0, [ip, #CTX_R0*4] // store the contents of r0 in address equal to the sum of ip and r0
-mov r0, ip
-mov ip,r1
+mov r0, sp
+str r1, [sp, #CTX_R1*4]
+str r2, [sp, #CTX_R2*4]
+str r3, [sp, #CTX_R3*4]
+str r4, [sp, #CTX_R4*4]
+str r5, [sp, #CTX_R5*4]
+str r6, [sp, #CTX_R6*4]
+str r7, [sp, #CTX_R7*4]
+str r8, [sp, #CTX_R8*4]
+str r9, [sp, #CTX_R9*4]
+str r10, [sp, #CTX_R10*4]
+str r11, [sp, #CTX_R11*4]
+str ip, [sp, #CTX_IP*4]
+str lr, [sp, #CTX_LR*4]
 
-str r1, [r0, #CTX_R1*4]
-str r2, [r0, #CTX_R2*4]
-str r3, [r0, #CTX_R3*4]
-str r4, [r0, #CTX_R4*4]
-str r5, [r0, #CTX_R7*4]
-str r6, [r0, #CTX_R6*4]
-str r7, [r0, #CTX_R7*4]
-str r8, [r0, #CTX_R8*4]
-str r9, [r0, #CTX_R9*4]
-str r10, [r0, #CTX_R10*4]
-str r11, [r0, #CTX_R11*4]
-str lr, [r0, #CTX_LR*4]
+str sp, [r0] //brylow gave this
+
+ldr sp, [r1] //bylow gave this
+
+ldr r1, [sp, #CTX_R1*4]
+ldr r2, [sp, #CTX_R2*4]
+ldr r3, [sp, #CTX_R3*4]
+ldr r4, [sp, #CTX_R4*4]
+ldr r5, [sp, #CTX_R5*4]
+ldr r6, [sp, #CTX_R6*4]
+ldr r7, [sp, #CTX_R7*4]
+ldr r8, [sp, #CTX_R8*4]
+ldr r9, [sp, #CTX_R9*4]
+ldr r10, [sp, #CTX_R10*4]
+ldr r11, [sp, #CTX_R11*4]
+ldr lr, [sp, #CTX_LR*4]
+
+ldr pc, [sp, #64] 
 
 // TODO: Save process state, including at least the 
 //	callee-save ("non-volatile") registers.
@@ -70,6 +86,5 @@ str lr, [r0, #CTX_LR*4]
 //	is here as a placeholder so that you don't crash your O/S when
 //	you call ctxsw() before it is complete.  But, this line of code
 //	is not actually a part of a completed solution.
-	bx	lr
 
 	.end ctxsw
