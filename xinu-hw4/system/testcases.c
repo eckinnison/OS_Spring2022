@@ -27,7 +27,6 @@ int testmain(int argc, char **argv)
     for (i = 0; i < 10; i++)
     {
         kprintf("This is process %d\r\n", currpid);
-        kprintf("This is round %d\r\n", i);
         
         /* Uncomment the resched() line for cooperative scheduling. */
        // resched();
