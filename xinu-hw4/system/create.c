@@ -126,7 +126,7 @@ syscall create(void *funcaddr, ulong ssize, char *name, ulong nargs, ...)
             saddr[i]= va_arg(ap, int);
             kprintf("here 0x%08X\r\n", saddr[i]);
         }
-        else { // puts in stack 
+        else { // puts in stack
             actRecord[i-4] = va_arg(ap, int);
             kprintf("here2 0x%08X\r\n", actRecord[i-4]);
 

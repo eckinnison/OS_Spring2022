@@ -41,7 +41,7 @@ void testbigargs(int a, int b, int c, int d, int e, int f, int g, int h)
     kprintf("b = 0x%08X\r\n", b);
     kprintf("c = 0x%08X\r\n", c);
     kprintf("d = 0x%08X\r\n", d);
-    kprintf("e = 0x%08X\r\n", e);
+    kprintf("e = 0x%08X\r\n", e);       //currently printing out the value of saddr[CTX_PC]=funcaddr; which is needed for part 2
     kprintf("f = 0x%08X\r\n", f);
     kprintf("g = 0x%08X\r\n", g);
     kprintf("h = 0x%08X\r\n", h);
