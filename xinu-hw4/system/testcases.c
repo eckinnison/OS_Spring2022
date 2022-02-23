@@ -113,7 +113,7 @@ void testcases(void)
         printpcb(pid);
         // TODO: print out stack with extra args
         // TODO: ready(pid, RESCHED_YES);
-
+        ready(pid, RESCHED_YES);
         break;
 
     case '2':
@@ -122,7 +122,6 @@ void testcases(void)
               RESCHED_NO);
         ready(create((void *)testmain, INITSTK, "MAIN2", 2, 0, NULL),
               RESCHED_NO);
-        kprintf("pre break\r\n");
         ready(create((void *)testmain, INITSTK, "MAIN3", 2, 0, NULL),
               RESCHED_YES);
         break;

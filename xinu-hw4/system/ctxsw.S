@@ -47,9 +47,9 @@ str r8, [sp, #CTX_R8*4]
 str r9, [sp, #CTX_R9*4]
 str r10, [sp, #CTX_R10*4]
 str r11, [sp, #CTX_R11*4]
-str lr, [sp, #CTX_IP*4]	//dont need
+str lr, [sp, #CTX_IP*4]	
 str lr, [sp, #CTX_LR*4]
-str lr, [sp, #CTX_PC*4]	//now broken
+str lr, [sp, #CTX_PC*4]	
 
 str sp, [r0] //brylow gave this
 
@@ -69,8 +69,8 @@ ldr r10, [sp, #CTX_R10*4]
 ldr r11, [sp, #CTX_R11*4]
 ldr ip, [sp, #CTX_IP*4]
 ldr lr, [sp, #CTX_LR*4]
-add sp, sp, #60		//now broken
-ldr pc, [sp]	//now broken
+add sp, sp, #60		
+ldr pc, [sp]	
 bx ip //Taiwo gave this line of code so that it loops
 
 

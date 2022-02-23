@@ -80,23 +80,12 @@ syscall create(void *funcaddr, ulong ssize, char *name, ulong nargs, ...)
     {
         *--saddr = 0;
     }
-
+    int *actRecord = saddr;
 	// TODO: Initialize process context.
 	// TODO:  Place arguments into activation record.
 	//        See K&R 7.3 for example using va_start, va_arg and
 	//        va_end macros for variable argument functions.
-
-    va_start(ap, nargs);
-
-    // goes through amount of arguments to add to stack
-    for (int i = 0; i < nargs; i++) {
-        if (i > 4) { // iterates through registers
-        }
-        else { // puts in stack
-            *(saddr + i - 3) = va_arg(ap, int);
-        }
-    }
-    va_end(ap);
+   
   //  *--saddr=funcaddr;
    // *--saddr=&userret;
    
@@ -127,6 +116,23 @@ syscall create(void *funcaddr, ulong ssize, char *name, ulong nargs, ...)
     kprintf("saddr[CTX_SP] = 0x%08X\n",&saddr[CTX_SP]);
     kprintf("saddr[CTX_LR] = 0x%08X\n",&saddr[CTX_LR]);
     kprintf("saddr[CTX_PC] = 0x%08X\n",&saddr[CTX_PC]);*/
+     int ival;
+
+    va_start(ap, nargs);
+
+    // goes through amount of arguments to add to stack
+    for (int i = 0; i < nargs; i++) {
+        if (i < 4) { // iterates through registers
+            saddr[i]= va_arg(ap, int);
+            kprintf("here 0x%08X\r\n", saddr[i]);
+        }
+        else { // puts in stack 
+            actRecord[i-4] = va_arg(ap, int);
+            kprintf("here2 0x%08X\r\n", actRecord[i-4]);
+
+        }
+    }
+    va_end(ap);
     return pid;
 }
 
