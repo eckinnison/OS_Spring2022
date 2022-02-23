@@ -33,22 +33,22 @@
  * @return special case -- see above
  */
 ctxsw:		//look into this more
-sub sp, sp, #CTX_PC*4
-
-str r0, [sp, #CTX_R0*4]	//4
-str r1, [sp, #CTX_R1*4]	//8
-str r2, [sp, #CTX_R2*4]	//12
-str r3, [sp, #CTX_R3*4]	//16
-str r4, [sp, #CTX_R4*4]	//20
-str r5, [sp, #CTX_R5*4]	//24
-str r6, [sp, #CTX_R6*4]	//28
-str r7, [sp, #CTX_R7*4]	//32
-str r8, [sp, #CTX_R8*4]	//36
-str r9, [sp, #CTX_R9*4]	//40
-str r10, [sp, #CTX_R10*4]	//44
-str r11, [sp, #CTX_R11*4]	//48
-str ip, [sp, #CTX_IP*4]		//52
-str lr, [sp, #CTX_LR*4]		//56
+sub sp, sp, #60
+//mov r0, sp	//this is bad
+str r0, [sp, #CTX_R0*4]
+str r1, [sp, #CTX_R1*4]
+str r2, [sp, #CTX_R2*4]
+str r3, [sp, #CTX_R3*4]
+str r4, [sp, #CTX_R4*4]
+str r5, [sp, #CTX_R5*4]
+str r6, [sp, #CTX_R6*4]
+str r7, [sp, #CTX_R7*4]
+str r8, [sp, #CTX_R8*4]
+str r9, [sp, #CTX_R9*4]
+str r10, [sp, #CTX_R10*4]
+str r11, [sp, #CTX_R11*4]
+str lr, [sp, #CTX_IP*4]	//dont need
+str lr, [sp, #CTX_LR*4]
 str lr, [sp, #CTX_PC*4]	//now broken
 
 str sp, [r0] //brylow gave this
@@ -69,8 +69,11 @@ ldr r10, [sp, #CTX_R10*4]
 ldr r11, [sp, #CTX_R11*4]
 ldr ip, [sp, #CTX_IP*4]
 ldr lr, [sp, #CTX_LR*4]
-add sp, sp, #CTX_PC*4		//now broken
-ldr pc, [sp]	 //now broken
+add sp, sp, #60		//now broken
+ldr pc, [sp]	//now broken
+bx ip //Taiwo gave this line of code so that it loops
+
+
 
 // TODO: Save process state, including at least the 
 //	callee-save ("non-volatile") registers.

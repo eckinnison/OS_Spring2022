@@ -1,6 +1,7 @@
 /**
  * COSC 3250 - Project 4
- * Explain briefly the functionality of the program.
+ * This helps us to debug our code
+ * Collaborators: Gabbie Rohde, and Jacob Deighton due to partner being MIA
  * @author Emma Claire Kinnison David Santiago
  * Instructor Dr. Brylow
  * TA-BOT:MAILTO emma.kinnison@marquette.edu david.santiago@marquette.edu
@@ -29,7 +30,7 @@ int testmain(int argc, char **argv)
         kprintf("This is round %d\r\n", i);
         
         /* Uncomment the resched() line for cooperative scheduling. */
-        resched();
+       // resched();
     }
     return 0;
 }
