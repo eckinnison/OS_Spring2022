@@ -26,7 +26,8 @@ int testmain(int argc, char **argv)
     for (i = 0; i < 10; i++)
     {
         kprintf("This is process %d\r\n", currpid);
-
+        kprintf("This is round %d\r\n", i);
+        
         /* Uncomment the resched() line for cooperative scheduling. */
         resched();
     }
@@ -124,7 +125,6 @@ void testcases(void)
         kprintf("pre break\r\n");
         ready(create((void *)testmain, INITSTK, "MAIN3", 2, 0, NULL),
               RESCHED_YES);
-        kprintf("Got here\r\n");
         break;
 
     default:
